@@ -1,0 +1,16 @@
+{
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"tailwindCSS.classAttributes": ["className", "tw", "clerkAppearance.*"],
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "always"
+	},
+	"editor.quickSuggestions": {
+		"strings": true
+	}
+}
