@@ -8,10 +8,13 @@ interface IPropsTypes {
 
 export const ProductList: FC<IPropsTypes> = () => {
 	return (
-		<div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-4">
+		<ul
+			data-testid="products-list"
+			className="mx-auto flex max-w-7xl flex-wrap justify-center gap-4"
+		>
 			{products.map((product) => {
 				return <ProductItem key={product.id} product={product} />;
 			})}
-		</div>
+		</ul>
 	);
 };

@@ -9,10 +9,10 @@ interface IPropsTypes {
 
 export const ProductDescription: FC<IPropsTypes> = ({ name, type, price }) => {
 	return (
-		<section className="flex flex-1 flex-col justify-between gap-4 text-slate-950">
+		<section className="flex flex-1 flex-col justify-between gap-2 pt-1 text-slate-900">
 			<h2>{name}</h2>
 			<div className="flex flex-col">
-				<p className="text-xs">{type}</p>
+				<p className="text-xs text-slate-600">{type}</p>
 				<p className="font-semibold ">{priceFormat(price, "pl-PL", "PLN")}</p>
 			</div>
 		</section>
