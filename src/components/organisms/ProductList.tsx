@@ -10,7 +10,7 @@ export const ProductList: FC<IPropsTypes> = () => {
 	return (
 		<ul
 			data-testid="products-list"
-			className="mx-auto flex max-w-7xl flex-wrap justify-center gap-4"
+			className="mx-auto flex max-w-7xl flex-wrap justify-center gap-4 md:pt-5"
 		>
 			{products.map((product) => {
 				return <ProductItem key={product.id} product={product} />;

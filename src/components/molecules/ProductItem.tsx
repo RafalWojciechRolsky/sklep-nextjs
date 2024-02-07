@@ -9,7 +9,7 @@ interface IPropsTypes {
 
 export const ProductItem: FC<IPropsTypes> = ({ product: { name, src, type, price } }) => {
 	return (
-		<li className="max-w-64 rounded-md bg-slate-300 p-2">
+		<li className="max-w-64 rounded-md bg-gray-200 p-2">
 			<article className="flex h-full flex-col">
 				<ProductCoverImage src={src} name={name} />
 				<ProductDescription name={name} type={type} price={price} />

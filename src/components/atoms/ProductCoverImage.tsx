@@ -8,7 +8,7 @@ interface IPropsTypes {
 
 export const ProductCoverImage: FC<IPropsTypes> = ({ src, name }) => {
 	return (
-		<figure className="h-62 w-62 relative overflow-hidden rounded-md">
+		<figure className="h-62 w-62 relative overflow-hidden rounded-md duration-200 ease-out	hover:scale-105">
 			<img src={`./images/${src}`} alt={name} />
 		</figure>
 	);
