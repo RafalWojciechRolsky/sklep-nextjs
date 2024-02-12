@@ -1,3 +1,4 @@
+/* eslint-disable import/no-default-export */
 import type { Config } from 'tailwindcss';
 
 export const config: Config = {
