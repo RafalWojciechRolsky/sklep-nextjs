@@ -8,7 +8,7 @@ const Page = async ({ params }: { params: { filename: string } }) => {
 	);
 	return (
 		<article className="prose prose-lg">
-			<Page />;
+			<Page />
 		</article>
 	);
 };
