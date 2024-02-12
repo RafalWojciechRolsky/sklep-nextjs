@@ -1,0 +1,13 @@
+{
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab",
+    "indentSize": 2,
+    "lineWidth": 100
+  }
+}

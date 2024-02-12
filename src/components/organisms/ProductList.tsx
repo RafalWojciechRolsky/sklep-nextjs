@@ -1,12 +1,13 @@
-import { type FC } from "react";
-import { ProductItem } from "@/components/molecules/ProductItem";
-import { products } from "@/data/products";
+import { type FC } from 'react';
+import { ProductItem } from '@/components/molecules/ProductItem';
+// import { products } from '@/data/products';
+import { type Product } from '@/types/types';
 
 interface IPropsTypes {
-	name?: string;
+	products: Product[];
 }
 
-export const ProductList: FC<IPropsTypes> = () => {
+export const ProductList: FC<IPropsTypes> = ({ products }) => {
 	return (
 		<ul
 			data-testid="products-list"
