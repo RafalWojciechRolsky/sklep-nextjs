@@ -1,7 +1,7 @@
 import { type Product, type ProductResponseItem } from '@/types/types';
 
-export async function getProducts() {
-	const res = await fetch('https://naszsklep-api.vercel.app/api/products');
+export async function getProducts(numberOfProducts = '20') {
+	const res = await fetch(`https://naszsklep-api.vercel.app/api/products?take=${numberOfProducts}`);
 	const productsResponse = (await res.json()) as ProductResponseItem[];
 	const products = productsResponse.map(productResponseItemToProduct);
 	return products;

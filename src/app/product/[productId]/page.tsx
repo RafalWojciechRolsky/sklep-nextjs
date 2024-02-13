@@ -2,18 +2,18 @@ import { Suspense } from 'react';
 import { type Metadata } from 'next';
 import { SingleProductPage } from '@/components/molecules/SingleProductPage';
 import { SugestedProducts } from '@/components/organisms/SugestedProducts';
-import { getProductById } from '@/utils/getProducts';
+import { getProductById, getProducts } from '@/utils/getProducts';
 
 interface Product {
 	params: { productId: string };
 }
 
-// export const generateStaticParams = async () => {
-// 	const products = await getProducts();
-// 	return products.map((product) => {
-// 		return { productId: product.id };
-// 	});
-// };
+export const generateStaticParams = async () => {
+	const products = await getProducts();
+	return products.map((product) => {
+		return { productId: product.id };
+	});
+};
 
 export const generateMetadata = async ({
 	params,
@@ -25,10 +25,18 @@ export const generateMetadata = async ({
 		title: product.name,
 		description: product.description,
 		openGraph: {
-			title: product.name,
+			title: `${product.name} - Dostępny na mojadomena.pl`,
 			description: product.description,
-			images: [{ url: product.imageSrc }],
+			images: [{ url: product.imageSrc, width: 800, height: 600, alt: product.name }],
+			url: `http://localhost:3000/product/${params.productId}`,
 		},
+		twitter: {
+			site: '@MyTwitter',
+			title: `${product.name} - Dostępny na mojadomena.pl`,
+			description: product.description,
+			images: `http://localhost:3000/images/${product.imageSrc}`,
+		},
+		metadataBase: new URL('http://localhost:3000'),
 	};
 };
 
