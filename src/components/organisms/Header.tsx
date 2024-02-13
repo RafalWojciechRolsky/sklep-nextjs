@@ -11,10 +11,22 @@ export const Header: FC<IPropsTypes> = (_props) => {
 			<nav>
 				<ul className="flex justify-center gap-4">
 					<li>
-						<ActiveLink href="/">Home</ActiveLink>
+						<ActiveLink
+							href="/"
+							activeClassName="underline"
+							className="text-blue-400 font-bold hover:text-blue-600"
+						>
+							Home
+						</ActiveLink>
 					</li>
 					<li>
-						<ActiveLink href="/products">Produkty</ActiveLink>
+						<ActiveLink
+							href="/products"
+							activeClassName="underline"
+							className="text-blue-400 font-bold hover:text-blue-600"
+						>
+							Produkty
+						</ActiveLink>
 					</li>
 				</ul>
 			</nav>

@@ -6,6 +6,9 @@ const nextConfig = {
 		typedRoutes: true,
 		mdxRs: true,
 	},
+	publicRuntimeConfig: {
+		metadataBase: 'https://sklep-nextjs-theta.vercel.app/',
+	},
 };
 
 const withMDX = require('@next/mdx')();

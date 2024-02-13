@@ -20,7 +20,8 @@ const productResponseItemToProduct = (product: ProductResponseItem): Product => 
 		name: product.title,
 		type: product.category,
 		price: product.price,
-		src: product.image,
+		imageSrc: product.image,
 		description: product.description,
+		longDescription: product.longDescription,
 	};
 };

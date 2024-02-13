@@ -3,8 +3,9 @@ export interface Product {
 	name: string;
 	type: string;
 	price: number;
-	src: string;
+	imageSrc: string;
 	description: string;
+	longDescription: string;
 }
 
 export interface ProductResponseItem {
