@@ -5,19 +5,38 @@ export interface Product {
 	price: number;
 	imageSrc: string;
 	description: string;
-	longDescription: string;
 }
 
 export interface ProductResponseItem {
 	id: string;
-	title: string;
+	name: string;
 	price: number;
+	categories: {
+		name: string
+	}[]
 	description: string;
-	category: string;
-	rating: {
-		rate: number;
-		count: number;
-	};
-	image: string;
-	longDescription: string;
+	images: {
+		url: string
+	}[]
+}
+
+export type GraphQLResponse<T> =
+	| { data?: undefined; errors: { message: string }[] }
+	| { data: T; errors?: undefined };
+
+export interface ProductsGraphqlResponse {
+	products: {
+		data: {
+			id: string
+			name: string
+			price: number
+			categories: {
+				name: string
+			}[]
+			description: string
+			images: {
+				url: string
+			}[]
+		}[]
+	}
 }
