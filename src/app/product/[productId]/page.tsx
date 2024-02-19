@@ -43,13 +43,11 @@ interface Product {
 // };
 
 const ProductPage = async ({ params }: Product) => {
-	const graphqlResponse = await executeGraphql(ProductGetByIdDocument, {
-		id: params.productId,
-	});
+	try {
+		const graphqlResponse = await executeGraphql(ProductGetByIdDocument, {
+			id: params.productId,
+		});
 
-	if (!graphqlResponse.product) {
-		notFound();
-	} else {
 		const product: ProductOnPage = {
 			id: graphqlResponse.product?.id || "",
 			description: graphqlResponse.product?.description || "",
@@ -71,6 +69,16 @@ const ProductPage = async ({ params }: Product) => {
 				</aside>
 			</>
 		);
+	} catch (error) {
+		if (error instanceof Error) {
+			if (error.message === "Product not found") {
+				notFound();
+			} else {
+				console.error("An unexpected error occurred:", error.message);
+			}
+		} else {
+			console.error("An unexpected error occurred:", error);
+		}
 	}
 };
 
