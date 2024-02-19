@@ -1,5 +1,6 @@
+import { notFound } from "next/navigation";
 import { ProductList } from "@/components/organisms/ProductList";
-import { ProductsGetByCategoryDocument } from "@/gql/graphql";
+import { CategoriesDocument, ProductsGetByCategoryDocument } from "@/gql/graphql";
 import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
 
@@ -14,8 +15,18 @@ export const generateStaticParams = async ({ params }: { params: { category: str
 };
 
 const CategoryProductPage = async ({ params: { category } }: { params: { category: string } }) => {
-	const graphqlResponse = await executeGraphql(ProductsGetByCategoryDocument, { slug: category });
+	const graphqlResponseCategories = await executeGraphql(CategoriesDocument, {});
+	const graphqlResponseCategoriesList = graphqlResponseCategories.categories.data;
 
+	const testCategory = graphqlResponseCategoriesList.filter((obj) => {
+		return category === obj.slug;
+	});
+
+	if (testCategory.length === 0) {
+		notFound();
+	}
+
+	const graphqlResponse = await executeGraphql(ProductsGetByCategoryDocument, { slug: category });
 	const productsData = graphqlResponse.category?.products || [];
 
 	const products: ProductOnPage[] = productsData.map((product) => {

@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 import { SingleProductPage } from "@/components/molecules/SingleProductPage";
 import { SugestedProducts } from "@/components/organisms/SugestedProducts";
 import { ProductGetByIdDocument } from "@/gql/graphql";
@@ -53,6 +54,11 @@ const ProductPage = async ({ params }: Product) => {
 		price: graphqlResponse.product?.price || 0,
 		type: graphqlResponse.product?.categories[0]?.name || "",
 	};
+
+	if (!product) {
+		notFound();
+	}
+
 	return (
 		<>
 			<div className="text-gray-900">
