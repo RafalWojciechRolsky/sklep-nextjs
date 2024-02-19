@@ -272,6 +272,25 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesQuery = { categories: { data: Array<{ id: string, slug: string, name: string }> } };
+
+export type ProductGetByIdQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type ProductGetByIdQuery = { product?: { id: string, name: string, description: string, slug: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> } | null };
+
+export type ProductsGetByCategoryQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type ProductsGetByCategoryQuery = { category?: { products: Array<{ id: string, name: string, description: string, price: number, images: Array<{ url: string }> }> } | null };
+
 export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -292,6 +311,52 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const CategoriesDocument = new TypedDocumentString(`
+    query Categories {
+  categories {
+    data {
+      id
+      slug
+      name
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoriesQuery, CategoriesQueryVariables>;
+export const ProductGetByIdDocument = new TypedDocumentString(`
+    query ProductGetById($id: ID) {
+  product(id: $id) {
+    id
+    name
+    description
+    categories {
+      name
+    }
+    images {
+      url
+    }
+    slug
+    price
+  }
+}
+    `) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
+export const ProductsGetByCategoryDocument = new TypedDocumentString(`
+    query ProductsGetByCategory($slug: String!) {
+  category(slug: $slug) {
+    products {
+      id
+      name
+      images {
+        url
+      }
+      description
+      price
+      images {
+        url
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductsGetByCategoryQuery, ProductsGetByCategoryQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList {
   products(take: 8) {

@@ -1,0 +1,9 @@
+query Categories {
+	categories {
+		data {
+			id
+			slug
+			name
+		}
+	}
+}

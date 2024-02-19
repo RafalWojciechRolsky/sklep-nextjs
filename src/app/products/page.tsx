@@ -1,11 +1,15 @@
-import { ProductList } from '@/components/organisms/ProductList';
-import { getProducts } from '@/utils/getProducts';
+import { ProductsGetListDocument } from "@/gql/graphql";
 
-export default async function ProductsPage({
-	searchParams,
-}: { searchParams: { [key: string]: string } }) {
-	const numerbOfProducts = searchParams.tab || '20';
+import { ProductList } from "@/components/organisms/ProductList";
+import { executeGraphql, productResponseItemToProduct } from "@/utils/getProducts";
 
-	const products = await getProducts(numerbOfProducts);
+const ProductsPage = async ({}: { searchParams: { [key: string]: string } }) => {
+	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {});
+
+	const products = graphqlResponse.products.data.map((product) =>
+		productResponseItemToProduct(product),
+	);
 	return <ProductList products={products} />;
-}
+};
+
+export default ProductsPage;

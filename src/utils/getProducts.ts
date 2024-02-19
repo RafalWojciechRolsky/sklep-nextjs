@@ -1,4 +1,4 @@
-import { ProductsGetListDocument, type TypedDocumentString } from "@/gql/graphql";
+import { type TypedDocumentString } from "@/gql/graphql";
 import { type GraphQLResponse, type Product, type ProductResponseItem } from "@/types/types";
 
 export const executeGraphql = async <TResult, TVariables>(
@@ -26,19 +26,6 @@ export const executeGraphql = async <TResult, TVariables>(
 		throw TypeError("GraphQL Error: ", { cause: graphqlResponse.errors });
 	}
 	return graphqlResponse.data;
-};
-
-export const getProducts = async (): Promise<Product[]> => {
-	const graphqlUrl = process.env.GRAPHQL_URL_API;
-	if (typeof graphqlUrl !== "string") {
-		throw TypeError("GRAPHQL_URL_API is not defined or not a string");
-	}
-	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {});
-
-	const products = graphqlResponse.products.data.map((product) =>
-		productResponseItemToProduct(product),
-	);
-	return products;
 };
 
 export const getProductById = async (id: ProductResponseItem["id"]): Promise<Product> => {
@@ -74,7 +61,7 @@ export const getProductById = async (id: ProductResponseItem["id"]): Promise<Pro
 	return product;
 };
 
-const productResponseItemToProduct = (product: ProductResponseItem): Product => {
+export const productResponseItemToProduct = (product: ProductResponseItem): Product => {
 	return {
 		id: product.id,
 		name: product.name,
