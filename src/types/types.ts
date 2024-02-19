@@ -4,7 +4,7 @@ export interface ProductOnPage {
 	type: string;
 	price: number;
 	imageSrc: string;
-	description: string;
+	description?: string;
 }
 
 export interface ProductResponseItem {

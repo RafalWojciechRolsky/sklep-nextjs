@@ -1,15 +1,6 @@
 query ProductGetById($id: ID) {
 	product(id: $id) {
-		id
-		name
+		...FragmentProduct
 		description
-		categories {
-			name
-		}
-		images {
-			url
-		}
-		slug
-		price
 	}
 }

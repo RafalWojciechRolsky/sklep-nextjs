@@ -10,7 +10,6 @@ const ProductsPage = async ({}: { searchParams: { [key: string]: string } }) => 
 	const products: ProductOnPage[] = graphqlResponse.products.data.map((product) => {
 		return {
 			id: product.id,
-			description: product.description,
 			imageSrc: product.images[0]?.url || "",
 			name: product.name,
 			price: product.price || 0,

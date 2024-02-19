@@ -1,17 +1,7 @@
 query ProductsGetList($take: Int) {
 	products(take: $take) {
 		data {
-			id
-			name
-			description
-			categories {
-				name
-			}
-			images {
-				url
-			}
-			slug
-			price
+			...FragmentProduct
 		}
 	}
 }

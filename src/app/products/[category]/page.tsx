@@ -32,7 +32,6 @@ const CategoryProductPage = async ({ params: { category } }: { params: { categor
 	const products: ProductOnPage[] = productsData.map((product) => {
 		return {
 			id: product.id,
-			description: product.description,
 			imageSrc: product.images[0]?.url || "",
 			name: product.name,
 			price: product.price || 0,
