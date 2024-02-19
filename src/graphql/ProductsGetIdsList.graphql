@@ -1,0 +1,7 @@
+query ProductsGetIdsList {
+	products {
+		data {
+			id
+		}
+	}
+}
