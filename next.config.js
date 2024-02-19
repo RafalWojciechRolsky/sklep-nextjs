@@ -6,6 +6,14 @@ const nextConfig = {
 		typedRoutes: true,
 		mdxRs: true,
 	},
+	images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'static-ourstore.hyperfunctor.com',
+      },
+    ],
+  },
 	publicRuntimeConfig: {
 		metadataBase: 'https://sklep-nextjs-theta.vercel.app/',
 	},
