@@ -17,5 +17,9 @@ export const SugestedProducts = async () => {
 			type: product.categories[0]?.name || "",
 		};
 	});
-	return <ProductList products={products} />;
+	return (
+		<section data-testid="related-products">
+			<ProductList products={products} />
+		</section>
+	);
 };

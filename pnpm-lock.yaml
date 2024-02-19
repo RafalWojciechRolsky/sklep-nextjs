@@ -32,6 +32,9 @@ dependencies:
   graphql:
     specifier: ^16.8.1
     version: 16.8.1
+  lucide-react:
+    specifier: ^0.334.0
+    version: 0.334.0(react@18.2.0)
   next:
     specifier: 14.1.0
     version: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)
@@ -4549,6 +4552,14 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /lucide-react@0.334.0(react@18.2.0):
+    resolution: {integrity: sha512-y0Rv/Xx6qAq4FutZ3L/efl3O9vl6NC/1p0YOg6mBfRbQ4k1JCE2rz0rnV7WC8Moxq1RY99vLATvjcqUegGJTvA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /map-cache@0.2.2:
     resolution: {integrity: sha512-8y/eV9QQZCiyn1SprXSrCmqJN0yNRATe+PO8ztwqrvrbdRLA3eYJF0yaR0YayLWkMbsQSKWS9N2gPcGEc4UsZg==}
