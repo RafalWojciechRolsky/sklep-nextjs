@@ -23,7 +23,9 @@ export const executeGraphql = async <TResult, TVariables>(
 	const graphqlResponse = (await res.json()) as GraphQLResponse<TResult>;
 
 	if (graphqlResponse.errors) {
-		throw TypeError("GraphQL Error: ", { cause: graphqlResponse.errors });
+		const errorMessage = `GraphQL Error: ${graphqlResponse.errors.map((error) => error.message).join(", ")}`;
+		throw new TypeError(errorMessage);
 	}
+
 	return graphqlResponse.data;
 };

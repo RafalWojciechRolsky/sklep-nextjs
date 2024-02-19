@@ -46,31 +46,32 @@ const ProductPage = async ({ params }: Product) => {
 	const graphqlResponse = await executeGraphql(ProductGetByIdDocument, {
 		id: params.productId,
 	});
-	const product: ProductOnPage = {
-		id: graphqlResponse.product?.id || "",
-		description: graphqlResponse.product?.description || "",
-		imageSrc: graphqlResponse.product?.images[0]?.url || "",
-		name: graphqlResponse.product?.name || "",
-		price: graphqlResponse.product?.price || 0,
-		type: graphqlResponse.product?.categories[0]?.name || "",
-	};
 
-	if (!product) {
+	if (!graphqlResponse.product) {
 		notFound();
-	}
+	} else {
+		const product: ProductOnPage = {
+			id: graphqlResponse.product?.id || "",
+			description: graphqlResponse.product?.description || "",
+			imageSrc: graphqlResponse.product?.images[0]?.url || "",
+			name: graphqlResponse.product?.name || "",
+			price: graphqlResponse.product?.price || 0,
+			type: graphqlResponse.product?.categories[0]?.name || "",
+		};
 
-	return (
-		<>
-			<div className="text-gray-900">
-				<SingleProductPage singlePage={true} product={product} />
-			</div>
-			<aside>
-				<Suspense fallback={<div>Loading...</div>}>
-					<SugestedProducts />
-				</Suspense>
-			</aside>
-		</>
-	);
+		return (
+			<>
+				<div className="text-gray-900">
+					<SingleProductPage singlePage={true} product={product} />
+				</div>
+				<aside>
+					<Suspense fallback={<div>Loading...</div>}>
+						<SugestedProducts />
+					</Suspense>
+				</aside>
+			</>
+		);
+	}
 };
 
 export default ProductPage;

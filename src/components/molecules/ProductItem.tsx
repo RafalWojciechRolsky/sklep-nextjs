@@ -1,11 +1,11 @@
 import { type FC } from "react";
 import Link from "next/link";
-import { type Product } from "@/types/types";
+import { type ProductOnPage } from "@/types/types";
 import { ProductDescription } from "@/components/atoms/ProductDescription";
 import { ProductCoverImage } from "@/components/atoms/ProductCoverImage";
 
 interface IPropsTypes {
-	product: Product;
+	product: ProductOnPage;
 }
 
 export const ProductItem: FC<IPropsTypes> = ({ product: { name, imageSrc, type, price, id } }) => {
