@@ -33,6 +33,7 @@
 		".next/types/**/*.ts",
 		"src/components/trash/regulamin/page.tsx.bak",
 		"src/components/trash/polityka-prywatnosci/page.tsx.bak",
+		".graphqlrc",
 		".graphqlrc.ts"
 	],
 	"exclude": ["node_modules"]

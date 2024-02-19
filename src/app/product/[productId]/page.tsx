@@ -4,19 +4,20 @@ import { notFound } from "next/navigation";
 import { type ProductOnPage } from "@/types/types";
 import { SingleProductPage } from "@/components/molecules/SingleProductPage";
 import { SugestedProducts } from "@/components/organisms/SugestedProducts";
-import { ProductGetByIdDocument, ProductsGetIdsListDocument } from "@/gql/graphql";
+// import { ProductGetByIdDocument, ProductsGetIdsListDocument } from "@/gql/graphql";
+import { ProductGetByIdDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/utils/executeGraphql";
 
 interface Product {
 	params: { productId: string };
 }
 
-export const generateStaticParams = async () => {
-	const graphqlResponse = await executeGraphql(ProductsGetIdsListDocument, {});
-	return graphqlResponse.products.data.map((product) => {
-		return { productId: product.id };
-	});
-};
+// export const generateStaticParams = async () => {
+// 	const graphqlResponse = await executeGraphql(ProductsGetIdsListDocument, {});
+// 	return graphqlResponse.products.data.map((product) => {
+// 		return { productId: product.id };
+// 	});
+// };
 
 export const generateMetadata = async ({
 	params,

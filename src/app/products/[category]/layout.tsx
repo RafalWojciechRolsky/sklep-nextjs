@@ -1,7 +1,12 @@
-import { type ReactNode } from 'react';
+import { type ReactNode } from "react";
+import { CategoriesDocument } from "@/gql/graphql";
+import { executeGraphql } from "@/utils/executeGraphql";
 
 export const generateStaticParams = async () => {
-	return [{ category: 'category1' }, { category: 'category2' }];
+	const graphqlResponse = await executeGraphql(CategoriesDocument, {});
+	return graphqlResponse.categories.data.map((category) => {
+		return { category: category.slug };
+	});
 };
 
 const CategoryProductLayout = ({ children }: { children: ReactNode }) => {
