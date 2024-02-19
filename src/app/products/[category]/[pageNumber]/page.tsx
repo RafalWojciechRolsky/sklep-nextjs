@@ -1,17 +1,7 @@
-// export const generateStaticParams = async ({ params }: { params: { category: string } }) => {
-// 	if (params.category === 'category1') {
-// 		return [{ pageNumber: '1' }, { pageNumber: '2' }];
-// 	} else if (params.category === 'category2') {
-// 		return [{ pageNumber: '1' }];
-// 	}
-// 	return [];
-// };
-
 import { CategoriesDocument, ProductsNameGetByCategoryDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/utils/executeGraphql";
 
 export const generateStaticParams = async ({ params }: { params: { category: string } }) => {
-	console.log("🚀 ~ generateStaticParams ~ params:", params);
 	const graphqlResponseCategories = await executeGraphql(CategoriesDocument, {});
 	const graphqlResponse = await executeGraphql(ProductsNameGetByCategoryDocument, {
 		slug: params.category,
@@ -30,19 +20,17 @@ export const generateStaticParams = async ({ params }: { params: { category: str
 
 			if (category.slug === params.category) {
 				const pages = Array.from({ length: totalPages }).map((_page, i) => {
-					return { pageNumber: i + 1 };
+					return { pageNumber: String(i + 1) };
 				});
 				return pages;
 			}
 		})
 		.filter((t) => t !== undefined)[0];
-	console.log("🚀 ~ generateStaticParams ~ test:", test);
-	// if (params.category === "t-shirts") {
-	// 	return [{ pageNumber: "1" }, { pageNumber: "2" }];
-	// } else if (params.category === "accessories") {
-	// 	return [{ pageNumber: "1" }];
-	// }
-	return [];
+	if (test) {
+		return [...test];
+	} else {
+		return [];
+	}
 };
 
 const CategoryProductPage = ({
