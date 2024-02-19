@@ -38,7 +38,7 @@ export const Header: FC<IPropsTypes> = async (_props) => {
 						return (
 							<li key={category.id}>
 								<ActiveLink
-									href={`/${category.slug}`}
+									href={`/products/${category.slug}`}
 									activeClassName="underline"
 									className="font-bold text-blue-400 hover:text-blue-600"
 								>

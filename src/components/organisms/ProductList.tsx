@@ -1,8 +1,8 @@
-import { ProductItem } from '@/components/molecules/ProductItem';
-import { type Product } from '@/types/types';
+import { ProductItem } from "@/components/molecules/ProductItem";
+import { type ProductOnPage } from "@/types/types";
 
 interface IPropsTypes {
-	products: Product[];
+	products: ProductOnPage[];
 }
 
 export const ProductList = ({ products }: IPropsTypes) => {
