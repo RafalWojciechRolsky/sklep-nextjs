@@ -1,4 +1,4 @@
-export interface Product {
+export interface ProductOnPage {
 	id: string;
 	name: string;
 	type: string;
@@ -12,31 +12,14 @@ export interface ProductResponseItem {
 	name: string;
 	price: number;
 	categories: {
-		name: string
-	}[]
+		name: string;
+	}[];
 	description: string;
 	images: {
-		url: string
-	}[]
+		url: string;
+	}[];
 }
 
 export type GraphQLResponse<T> =
 	| { data?: undefined; errors: { message: string }[] }
 	| { data: T; errors?: undefined };
-
-export interface ProductsGraphqlResponse {
-	products: {
-		data: {
-			id: string
-			name: string
-			price: number
-			categories: {
-				name: string
-			}[]
-			description: string
-			images: {
-				url: string
-			}[]
-		}[]
-	}
-}

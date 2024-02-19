@@ -17,7 +17,7 @@ const documents = {
     "query Categories {\n  categories {\n    data {\n      id\n      slug\n      name\n    }\n  }\n}": types.CategoriesDocument,
     "query ProductGetById($id: ID) {\n  product(id: $id) {\n    id\n    name\n    description\n    categories {\n      name\n    }\n    images {\n      url\n    }\n    slug\n    price\n  }\n}": types.ProductGetByIdDocument,
     "query ProductsGetByCategory($slug: String!) {\n  category(slug: $slug) {\n    products {\n      id\n      name\n      images {\n        url\n      }\n      description\n      price\n      images {\n        url\n      }\n    }\n  }\n}": types.ProductsGetByCategoryDocument,
-    "query ProductsGetList {\n  products(take: 8) {\n    data {\n      id\n      name\n      description\n      categories {\n        name\n      }\n      images {\n        url\n      }\n      price\n    }\n  }\n}": types.ProductsGetListDocument,
+    "query ProductsGetList($take: Int) {\n  products(take: $take) {\n    data {\n      id\n      name\n      description\n      categories {\n        name\n      }\n      images {\n        url\n      }\n      slug\n      price\n    }\n  }\n}": types.ProductsGetListDocument,
 };
 
 /**
@@ -35,7 +35,7 @@ export function graphql(source: "query ProductsGetByCategory($slug: String!) {\n
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductsGetList {\n  products(take: 8) {\n    data {\n      id\n      name\n      description\n      categories {\n        name\n      }\n      images {\n        url\n      }\n      price\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListDocument;
+export function graphql(source: "query ProductsGetList($take: Int) {\n  products(take: $take) {\n    data {\n      id\n      name\n      description\n      categories {\n        name\n      }\n      images {\n        url\n      }\n      slug\n      price\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListDocument;
 
 
 export function graphql(source: string) {

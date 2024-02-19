@@ -291,10 +291,12 @@ export type ProductsGetByCategoryQueryVariables = Exact<{
 
 export type ProductsGetByCategoryQuery = { category?: { products: Array<{ id: string, name: string, description: string, price: number, images: Array<{ url: string }> }> } | null };
 
-export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductsGetListQueryVariables = Exact<{
+  take?: InputMaybe<Scalars['Int']['input']>;
+}>;
 
 
-export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } };
+export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, description: string, slug: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -358,8 +360,8 @@ export const ProductsGetByCategoryDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<ProductsGetByCategoryQuery, ProductsGetByCategoryQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList {
-  products(take: 8) {
+    query ProductsGetList($take: Int) {
+  products(take: $take) {
     data {
       id
       name
@@ -370,6 +372,7 @@ export const ProductsGetListDocument = new TypedDocumentString(`
       images {
         url
       }
+      slug
       price
     }
   }
