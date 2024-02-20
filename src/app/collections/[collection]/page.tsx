@@ -5,8 +5,6 @@ import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
 
 const CollectionPage = async ({ params }: { params: { collection: string } }) => {
-	console.log("🚀 ~ CollectionPage ~ params:", params.collection);
-
 	const graphqlResponseCollections = await executeGraphql(CollectionDocument, {
 		slug: params.collection,
 	});

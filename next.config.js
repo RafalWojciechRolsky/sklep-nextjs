@@ -24,6 +24,11 @@ const nextConfig = {
         destination: '/categories/t-shirts/1',
         permanent: false, 
       },
+      {
+        source:  '/products',
+        destination: '/products/1',
+        permanent: false, 
+      },
     ]
   },
 	images: {

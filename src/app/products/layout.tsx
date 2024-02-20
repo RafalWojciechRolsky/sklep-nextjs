@@ -7,6 +7,7 @@ interface IPropsTypes {
 
 export const metadata: Metadata = {
 	title: "Products",
+	description: "Strona z produktami - mojasuperdomena.pl",
 };
 
 const PageLayout = ({ children }: IPropsTypes) => {

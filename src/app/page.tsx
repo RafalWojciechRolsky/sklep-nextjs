@@ -5,7 +5,7 @@ import { executeGraphql } from "@/utils/executeGraphql";
 
 const HomePage = async ({ searchParams }: { searchParams: { take: string; skip: string } }) => {
 	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {
-		take: +searchParams.take || 20,
+		take: +searchParams.take || 8,
 		skip: +searchParams.skip || 0,
 	});
 
@@ -18,12 +18,13 @@ const HomePage = async ({ searchParams }: { searchParams: { take: string; skip: 
 			type: product.categories[0]?.name || "",
 		};
 	});
+
 	return (
 		<>
 			<h1 className="mb-10 text-center text-3xl font-semibold text-slate-900">
 				Witamy w naszym sklepie
 			</h1>
-			<ProductList products={products} />;
+			<ProductList products={products} />
 		</>
 	);
 };

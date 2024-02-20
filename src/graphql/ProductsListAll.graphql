@@ -1,0 +1,7 @@
+query ProductsListAll {
+	products {
+		meta {
+			total
+		}
+	}
+}

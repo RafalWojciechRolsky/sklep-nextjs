@@ -1,14 +1,32 @@
 import { type Metadata } from "next";
-import { ProductsGetListDocument } from "@/gql/graphql";
+import { ProductsGetListDocument, ProductsListAllDocument } from "@/gql/graphql";
 import { ProductList } from "@/components/organisms/ProductList";
 import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
+import { Pagination } from "@/components/molecules/Pagination";
 
-const ProductsPage = async ({ searchParams }: { searchParams: { take: string; skip: string } }) => {
+const ProductsPage = async ({
+	params,
+	searchParams,
+}: {
+	params: { [key: string]: string };
+	searchParams: { take: string };
+}) => {
+	const defaultTake = 8;
+	let pageNumber = 1;
+	if (params.pageNumber) {
+		pageNumber = +params.pageNumber;
+	}
+	const skip = (pageNumber - 1) * (+searchParams.take || defaultTake);
+
+	const numberOfproducts = await executeGraphql(ProductsListAllDocument, {});
 	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {
-		take: +searchParams.take || 20,
-		skip: +searchParams.skip || 0,
+		take: +searchParams.take || defaultTake,
+		skip: skip,
 	});
+
+	const take = +searchParams.take || defaultTake;
+	const totalProducts = numberOfproducts.products.meta.total;
 
 	const products: ProductOnPage[] = graphqlResponse.products.data.map((product) => {
 		return {
@@ -19,7 +37,18 @@ const ProductsPage = async ({ searchParams }: { searchParams: { take: string; sk
 			type: product.categories[0]?.name || "",
 		};
 	});
-	return <ProductList products={products} />;
+
+	return (
+		<>
+			<ProductList products={products} />
+			<Pagination
+				take={take}
+				totalProducts={totalProducts}
+				path="products"
+				currentPage={pageNumber}
+			/>
+		</>
+	);
 };
 
 export default ProductsPage;
