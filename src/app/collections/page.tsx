@@ -9,7 +9,7 @@ const CollectionsPage = async () => {
 	return (
 		<section className="px-20">
 			<h1 className="mb-10 text-center text-3xl font-semibold text-slate-900">Collections Page</h1>
-			<div className={`grid grid-cols-1 gap-4 lg:grid-cols-${collections.length} lg:gap-8`}>
+			<div className={`grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8`}>
 				{collections.map((collection) => {
 					return (
 						<ActiveLink

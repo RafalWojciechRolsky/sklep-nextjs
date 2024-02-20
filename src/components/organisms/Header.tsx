@@ -18,6 +18,7 @@ export const Header = async () => {
 			};
 		}),
 		{ href: "/collections", label: "Collections", exact: true },
+		{ href: "/random", label: "Random", exact: true },
 	];
 
 	return (
