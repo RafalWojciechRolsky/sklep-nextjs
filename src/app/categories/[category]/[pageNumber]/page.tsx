@@ -14,7 +14,7 @@ const CategoryProductPage = async ({
 	params,
 	searchParams,
 }: {
-	params: { category: string };
+	params: { [key: string]: string };
 	searchParams: { take: string };
 }) => {
 	const graphqlResponseCategories = await executeGraphql(CategoriesDocument, {});
@@ -29,7 +29,7 @@ const CategoryProductPage = async ({
 	}
 
 	const graphqlResponse = await executeGraphql(ProductsGetByCategoryDocument, {
-		slug: params.category,
+		slug: params.category as string,
 	});
 	const productsData = graphqlResponse.category?.products || [];
 

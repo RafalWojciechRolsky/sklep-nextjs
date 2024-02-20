@@ -1,0 +1,12 @@
+query Collections {
+	collections {
+		data {
+			name
+			slug
+			id
+			products {
+				name
+			}
+		}
+	}
+}

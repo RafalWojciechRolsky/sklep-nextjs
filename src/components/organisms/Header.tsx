@@ -8,38 +8,22 @@ export const Header = async () => {
 
 	const categories = graphqlResponse.categories.data;
 	const navLinks = [
+		{ href: "/", label: "Home", exact: true },
+		{ href: "/products", label: "All products", exact: true },
 		...categories.map((category) => {
 			return {
 				href: `/categories/${category.slug}`,
 				label: category.name,
+				exact: true,
 			};
 		}),
+		{ href: "/collections", label: "Collections", exact: true },
 	];
 
 	return (
 		<header className="mx-auto max-w-2xl  bg-gray-100 px-4 py-6 text-slate-600  sm:px-6 lg:max-w-7xl lg:px-8">
 			<nav className="flex flex-row justify-between">
 				<ul className="flex justify-center gap-4">
-					<li>
-						<ActiveLink
-							href="/"
-							activeClassName="underline"
-							className="font-bold transition-all duration-300 ease-out hover:text-slate-900"
-							exact
-						>
-							Home
-						</ActiveLink>
-					</li>
-					<li>
-						<ActiveLink
-							href="/products"
-							activeClassName="underline"
-							className="font-bold transition-all duration-300 ease-out hover:text-slate-900"
-							exact
-						>
-							All Products
-						</ActiveLink>
-					</li>
 					{navLinks.map((navLink) => {
 						return (
 							<li key={navLink.href}>
