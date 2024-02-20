@@ -9,6 +9,7 @@ export const Header = async () => {
 	const categories = graphqlResponse.categories.data;
 	const navLinks = [
 		{ href: "/", label: "Home", exact: true },
+		{ href: "/products", label: "All", exact: true },
 		...categories.map((category) => {
 			return {
 				href: `/categories/${category.slug}`,
