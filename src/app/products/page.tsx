@@ -4,8 +4,11 @@ import { ProductList } from "@/components/organisms/ProductList";
 import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
 
-const ProductsPage = async ({}: { searchParams: { [key: string]: string } }) => {
-	const graphqlResponse = await executeGraphql(ProductsGetListDocument, { take: 8 });
+const ProductsPage = async ({ searchParams }: { searchParams: { take: string; skip: string } }) => {
+	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {
+		take: +searchParams.take || 8,
+		skip: +searchParams.skip || 0,
+	});
 
 	const products: ProductOnPage[] = graphqlResponse.products.data.map((product) => {
 		return {

@@ -300,6 +300,7 @@ export type ProductsGetIdsListQuery = { products: { data: Array<{ id: string }> 
 
 export type ProductsGetListQueryVariables = Exact<{
   take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
@@ -397,8 +398,8 @@ export const ProductsGetIdsListDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<ProductsGetIdsListQuery, ProductsGetIdsListQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList($take: Int) {
-  products(take: $take) {
+    query ProductsGetList($take: Int, $skip: Int) {
+  products(take: $take, skip: $skip) {
     data {
       ...FragmentProduct
     }

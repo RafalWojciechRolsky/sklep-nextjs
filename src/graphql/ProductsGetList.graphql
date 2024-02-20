@@ -1,5 +1,5 @@
-query ProductsGetList($take: Int) {
-	products(take: $take) {
+query ProductsGetList($take: Int, $skip: Int) {
+	products(take: $take, skip: $skip) {
 		data {
 			...FragmentProduct
 		}
