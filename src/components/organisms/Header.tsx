@@ -10,7 +10,7 @@ export const Header = async () => {
 	const navLinks = [
 		...categories.map((category) => {
 			return {
-				href: `/products/${category.slug}`,
+				href: `/categories/${category.slug}`,
 				label: category.name,
 			};
 		}),
