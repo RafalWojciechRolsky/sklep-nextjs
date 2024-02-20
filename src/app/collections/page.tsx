@@ -13,7 +13,7 @@ const CollectionsPage = async () => {
 				{collections.map((collection) => {
 					return (
 						<ActiveLink
-							href={`/collections/${collection.slug}`}
+							href={{ pathname: `/collections/${collection.slug}` }}
 							key={collection.id}
 							className="flex h-32 items-center justify-center rounded-lg bg-gray-200 transition-all duration-300 ease-out hover:bg-gray-300"
 							exact={false}
