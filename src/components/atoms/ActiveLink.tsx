@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { usePathname } from 'next/navigation';
-import { type ReactNode } from 'react';
-import Link from 'next/link';
+import { useParams, usePathname } from "next/navigation";
+import { type ReactNode } from "react";
+import Link from "next/link";
 
 export const ActiveLink = ({
 	href,
@@ -18,17 +18,27 @@ export const ActiveLink = ({
 	exact?: boolean;
 }) => {
 	const pathname = usePathname();
-	const isActive = exact ? pathname === href : pathname.startsWith(href);
+	const params = useParams();
+	let isActive: boolean;
+
+	if (Object.entries(params).length === 0) {
+		isActive = exact ? pathname === href : pathname.startsWith(href);
+	} else {
+		const pageNumber = params?.pageNumber as string;
+		isActive = exact
+			? pathname === `${href}${params?.pageNumber && `/${pageNumber}`}`
+			: pathname.startsWith(href);
+	}
 
 	const combinedClassName = isActive
-		? `${className ?? ''} ${activeClassName ?? ''}`
-		: className ?? '';
+		? `${className ?? ""} ${activeClassName ?? ""}`
+		: className ?? "";
 
 	return (
 		<Link
 			href={{ pathname: href }}
 			className={combinedClassName}
-			aria-current={isActive ? 'page' : undefined}
+			aria-current={isActive ? "page" : undefined}
 		>
 			{children}
 		</Link>
