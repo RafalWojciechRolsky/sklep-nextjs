@@ -14,17 +14,17 @@ export const Header = async () => {
 		{ href: "/", label: "Home", exact: true },
 		{ href: "/products", label: "All", exact: true },
 		{ href: "/random", label: "Random", exact: true },
-		...categories.map((category) => {
-			return {
-				href: `/categories/${category.slug}`,
-				label: category.name,
-				exact: true,
-			};
-		}),
 		...collections.map((collection) => {
 			return {
 				href: `/collections/${collection.slug}`,
 				label: collection.name,
+				exact: true,
+			};
+		}),
+		...categories.map((category) => {
+			return {
+				href: `/categories/${category.slug}`,
+				label: category.name,
 				exact: true,
 			};
 		}),
