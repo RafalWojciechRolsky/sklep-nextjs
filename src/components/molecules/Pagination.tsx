@@ -20,7 +20,6 @@ export const Pagination = ({ totalProducts, take, path, currentPage }: IPropsTyp
 							pathname: `/${path}/${currentPage - 1}`,
 							query: { take },
 						}}
-						shallow={true}
 						className="rounded-sm bg-slate-300 px-4 py-2"
 					>
 						<ChevronLeft size={36} />
@@ -32,7 +31,6 @@ export const Pagination = ({ totalProducts, take, path, currentPage }: IPropsTyp
 							pathname: `/${path}/${page}`,
 							query: { take },
 						}}
-						shallow={true}
 						key={page}
 						className={`rounded-sm px-4 py-2 ${currentPage === page ? "bg-slate-500" : "bg-slate-300"}`}
 					>
@@ -45,7 +43,6 @@ export const Pagination = ({ totalProducts, take, path, currentPage }: IPropsTyp
 							pathname: `/${path}/${currentPage + 1}`,
 							query: { take },
 						}}
-						shallow={true}
 						className="rounded-sm bg-slate-300 px-4 py-2"
 					>
 						<ChevronRight size={36} />
