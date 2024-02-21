@@ -296,11 +296,6 @@ export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CollectionsQuery = { collections: { data: Array<{ name: string, slug: string, id: string }> } };
 
-export type CollectionsWithProductsNamesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CollectionsWithProductsNamesQuery = { collections: { data: Array<{ name: string, slug: string, id: string, products: Array<{ name: string }> }> } };
-
 export type FragmentProductFragment = { id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> };
 
 export type ProductGetByIdQueryVariables = Exact<{
@@ -341,6 +336,14 @@ export type ProductsNameGetByCategoryQueryVariables = Exact<{
 
 
 export type ProductsNameGetByCategoryQuery = { category?: { products: Array<{ name: string }> } | null };
+
+export type ProductsSearchListQueryVariables = Exact<{
+  search?: InputMaybe<Scalars['String']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type ProductsSearchListQuery = { products: { data: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -420,20 +423,6 @@ export const CollectionsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CollectionsQuery, CollectionsQueryVariables>;
-export const CollectionsWithProductsNamesDocument = new TypedDocumentString(`
-    query CollectionsWithProductsNames {
-  collections {
-    data {
-      name
-      slug
-      id
-      products {
-        name
-      }
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<CollectionsWithProductsNamesQuery, CollectionsWithProductsNamesQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID) {
   product(id: $id) {
@@ -517,3 +506,22 @@ export const ProductsNameGetByCategoryDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProductsNameGetByCategoryQuery, ProductsNameGetByCategoryQueryVariables>;
+export const ProductsSearchListDocument = new TypedDocumentString(`
+    query ProductsSearchList($search: String, $take: Int) {
+  products(search: $search, take: $take) {
+    data {
+      ...FragmentProduct
+    }
+  }
+}
+    fragment FragmentProduct on Product {
+  id
+  name
+  price
+  categories {
+    name
+  }
+  images {
+    url
+  }
+}`) as unknown as TypedDocumentString<ProductsSearchListQuery, ProductsSearchListQueryVariables>;
