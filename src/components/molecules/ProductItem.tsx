@@ -1,8 +1,8 @@
 import { type FC } from "react";
 import Link from "next/link";
 import { type ProductOnPage } from "@/types/types";
-import { ProductDescription } from "@/components/atoms/ProductDescription";
-import { ProductCoverImage } from "@/components/atoms/ProductCoverImage";
+import { ProductDescription } from "@/components/atoms/ProductItemDescription";
+import { ProductCoverImage } from "@/components/atoms/ProductItemCoverImage";
 
 interface IPropsTypes {
 	product: ProductOnPage;

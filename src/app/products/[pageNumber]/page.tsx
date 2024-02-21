@@ -26,7 +26,7 @@ const ProductsPage = async ({
 	});
 
 	const take = +searchParams.take || defaultTake;
-	const totalProducts = numberOfproducts.products.meta.total;
+	const totalProducts = numberOfproducts.products?.meta.total;
 
 	const products: ProductOnPage[] = graphqlResponse.products.data.map((product) => {
 		return {
