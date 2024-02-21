@@ -2,6 +2,7 @@ import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { CategoriesDocument, CollectionsDocument } from "@/gql/graphql";
 import { Cart } from "@/components/molecules/Cart";
+import { SearchInput } from "@/components/atoms/SearchInput";
 
 export const Header = async () => {
 	const graphqlResponse = await executeGraphql(CategoriesDocument, {});
@@ -32,7 +33,7 @@ export const Header = async () => {
 
 	return (
 		<header className="mx-auto max-w-2xl  bg-gray-100 px-4 py-6 text-slate-600  sm:px-6 lg:max-w-7xl lg:px-8">
-			<nav className="flex flex-row justify-between">
+			<nav className="flex flex-row items-center justify-between">
 				<ul className="flex justify-center" aria-label="pagination">
 					{navLinks.map((navLink) => {
 						return (
@@ -49,7 +50,7 @@ export const Header = async () => {
 						);
 					})}
 				</ul>
-
+				<SearchInput />
 				<Cart />
 			</nav>
 		</header>
