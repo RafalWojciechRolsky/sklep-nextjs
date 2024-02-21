@@ -15,18 +15,18 @@ export const ActiveLink = ({
 	className,
 	activeClassName,
 	exact = false,
+	shallow = true,
 }: {
 	href: HrefObject;
 	children: ReactNode;
 	className?: string;
 	activeClassName?: string;
 	exact?: boolean;
+	shallow?: boolean;
 }) => {
 	const pathname = usePathname();
 	const params = useParams();
 	let isActive: boolean;
-
-	console.log(pathname, href.pathname);
 
 	if (Object.entries(params).length === 0) {
 		isActive = exact ? pathname === href.pathname : pathname.startsWith(href.pathname);
@@ -49,6 +49,7 @@ export const ActiveLink = ({
 				href={{ pathname: href.pathname, query: { take: href.query?.take } }}
 				className={combinedClassName}
 				aria-current={isActive ? "page" : undefined}
+				shallow={shallow}
 			>
 				{children}
 			</Link>
@@ -59,6 +60,7 @@ export const ActiveLink = ({
 				href={{ pathname: href.pathname }}
 				className={combinedClassName}
 				aria-current={isActive ? "page" : undefined}
+				shallow={shallow}
 			>
 				{children}
 			</Link>
