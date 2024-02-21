@@ -40,6 +40,7 @@ const ProductsPage = async ({
 
 	return (
 		<>
+			<h1 className="mb-10 text-center text-3xl font-semibold text-slate-900">All Products</h1>
 			<ProductList products={products} />
 			<Pagination
 				take={take}

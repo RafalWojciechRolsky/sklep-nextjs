@@ -13,7 +13,7 @@ export const ActiveLink = ({
 	href,
 	children,
 	className,
-	activeClassName,
+	activeClassName = "border-blue-500",
 	exact = false,
 	shallow = true,
 }: {
@@ -40,6 +40,7 @@ export const ActiveLink = ({
 	const combinedClassName = isActive
 		? `${className ?? ""} ${activeClassName ?? ""}`
 		: className ?? "";
+
 	if (href.query?.take) {
 		return (
 			<Link

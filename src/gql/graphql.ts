@@ -277,6 +277,13 @@ export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CategoriesQuery = { categories: { data: Array<{ id: string, slug: string, name: string }> } };
 
+export type CategoryGetBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type CategoryGetBySlugQuery = { category?: { name: string } | null };
+
 export type CollectionQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
@@ -368,6 +375,13 @@ export const CategoriesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CategoriesQuery, CategoriesQueryVariables>;
+export const CategoryGetBySlugDocument = new TypedDocumentString(`
+    query CategoryGetBySlug($slug: String!) {
+  category(slug: $slug) {
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryGetBySlugQuery, CategoryGetBySlugQueryVariables>;
 export const CollectionDocument = new TypedDocumentString(`
     query Collection($slug: String!) {
   collection(slug: $slug) {

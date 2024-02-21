@@ -26,9 +26,9 @@ const RandomPage = async () => {
 	}) as ProductOnPage[];
 
 	return (
-		<section data-testid="related-products" className="px-10">
+		<section className="px-10">
 			<h1 className="mb-10 text-center text-3xl font-semibold text-slate-900">Random products</h1>
-			<ProductList products={products} />;
+			<ProductList products={products} />
 		</section>
 	);
 };

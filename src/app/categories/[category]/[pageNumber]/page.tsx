@@ -5,6 +5,7 @@ import {
 	ProductsNameGetByCategoryDocument,
 	CategoriesDocument,
 	ProductsGetByCategoryDocument,
+	CategoryGetBySlugDocument,
 } from "@/gql/graphql";
 import { type ProductOnPage } from "@/types/types";
 
@@ -19,6 +20,12 @@ const CategoryProductPage = async ({
 }) => {
 	const graphqlResponseCategories = await executeGraphql(CategoriesDocument, {});
 	const graphqlResponseCategoriesList = graphqlResponseCategories.categories.data;
+	const graphqlResponseCategoryName = await executeGraphql(CategoryGetBySlugDocument, {
+		slug: params.category as string,
+	});
+	const graphqlResponse = await executeGraphql(ProductsGetByCategoryDocument, {
+		slug: params.category as string,
+	});
 
 	const testCategory = graphqlResponseCategoriesList.filter((obj) => {
 		return params.category === obj.slug;
@@ -28,9 +35,6 @@ const CategoryProductPage = async ({
 		notFound();
 	}
 
-	const graphqlResponse = await executeGraphql(ProductsGetByCategoryDocument, {
-		slug: params.category as string,
-	});
 	const productsData = graphqlResponse.category?.products || [];
 
 	const products: ProductOnPage[] = productsData
@@ -45,7 +49,14 @@ const CategoryProductPage = async ({
 		})
 		.slice(0, +searchParams.take || 8);
 
-	return <ProductList products={products} />;
+	return (
+		<>
+			<h1 className="mb-10 text-center text-3xl font-semibold text-slate-900">
+				{graphqlResponseCategoryName.category?.name}
+			</h1>
+			<ProductList products={products} />
+		</>
+	);
 };
 
 export default CategoryProductPage;
@@ -55,7 +66,11 @@ export const generateMetadata = async ({
 }: {
 	params: { category: string };
 }): Promise<Metadata> => {
-	const title = `Kategoria prpduktów: ${params.category}`;
+	const graphqlResponseCategoryName = await executeGraphql(CategoryGetBySlugDocument, {
+		slug: params.category,
+	});
+
+	const title = `Kategoria produktów: ${graphqlResponseCategoryName.category?.name}`;
 	const description = "Wszystko co najlepsze - mojadomena.pl";
 
 	return {
