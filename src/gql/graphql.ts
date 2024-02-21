@@ -294,7 +294,12 @@ export type CollectionQuery = { collection?: { name: string, slug: string, id: s
 export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CollectionsQuery = { collections: { data: Array<{ name: string, slug: string, id: string, products: Array<{ name: string }> }> } };
+export type CollectionsQuery = { collections: { data: Array<{ name: string, slug: string, id: string }> } };
+
+export type CollectionsWithProductsNamesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionsWithProductsNamesQuery = { collections: { data: Array<{ name: string, slug: string, id: string, products: Array<{ name: string }> }> } };
 
 export type FragmentProductFragment = { id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> };
 
@@ -411,13 +416,24 @@ export const CollectionsDocument = new TypedDocumentString(`
       name
       slug
       id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsQuery, CollectionsQueryVariables>;
+export const CollectionsWithProductsNamesDocument = new TypedDocumentString(`
+    query CollectionsWithProductsNames {
+  collections {
+    data {
+      name
+      slug
+      id
       products {
         name
       }
     }
   }
 }
-    `) as unknown as TypedDocumentString<CollectionsQuery, CollectionsQueryVariables>;
+    `) as unknown as TypedDocumentString<CollectionsWithProductsNamesQuery, CollectionsWithProductsNamesQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID) {
   product(id: $id) {

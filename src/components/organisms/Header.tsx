@@ -1,21 +1,30 @@
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { executeGraphql } from "@/utils/executeGraphql";
-import { CategoriesDocument } from "@/gql/graphql";
+import { CategoriesDocument, CollectionsDocument } from "@/gql/graphql";
 import { Cart } from "@/components/molecules/Cart";
 
 export const Header = async () => {
 	const graphqlResponse = await executeGraphql(CategoriesDocument, {});
+	const graphqlResponseCollections = await executeGraphql(CollectionsDocument, {});
 
+	const collections = graphqlResponseCollections.collections.data;
 	const categories = graphqlResponse.categories.data;
+
 	const navLinks = [
 		{ href: "/", label: "Home", exact: true },
 		{ href: "/products", label: "All", exact: true },
-		{ href: "/collections", label: "Collections", exact: true },
 		{ href: "/random", label: "Random", exact: true },
 		...categories.map((category) => {
 			return {
 				href: `/categories/${category.slug}`,
 				label: category.name,
+				exact: true,
+			};
+		}),
+		...collections.map((collection) => {
+			return {
+				href: `/collections/${collection.slug}`,
+				label: collection.name,
 				exact: true,
 			};
 		}),

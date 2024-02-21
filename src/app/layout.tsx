@@ -24,7 +24,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-	title: "Sklep Muzyczny - Next JS Masters",
+	title: "Sklep Testowy - Next JS 14 Masters",
 	description: "Tutorial Next JS Masters",
 };
 

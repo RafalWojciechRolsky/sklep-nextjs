@@ -4,9 +4,6 @@ query Collections {
 			name
 			slug
 			id
-			products {
-				name
-			}
 		}
 	}
 }
