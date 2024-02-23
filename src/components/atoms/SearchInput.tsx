@@ -2,16 +2,28 @@
 
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { type FormEvent, useState, type ChangeEvent } from "react";
+import { type FormEvent, useState, type ChangeEvent, useEffect } from "react";
+import { useDebounce } from "@/utils/hooks/useDebounce";
 
 export const SearchInput = () => {
 	const router = useRouter();
 	const [inputSearch, setInputSearch] = useState("");
 
+	const debouncedSearch = useDebounce(inputSearch, 1500);
+
+	useEffect(() => {
+		if (debouncedSearch) {
+			router.push(`/search?query=${debouncedSearch}`);
+			setInputSearch("");
+		}
+	}, [router, debouncedSearch]);
+
 	const searchSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(inputSearch);
-		router.push(`/search?query=${inputSearch}`);
+		if (inputSearch) {
+			router.push(`/search?query=${inputSearch}`);
+			setInputSearch("");
+		}
 		setInputSearch("");
 	};
 
