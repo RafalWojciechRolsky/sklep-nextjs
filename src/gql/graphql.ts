@@ -272,6 +272,13 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CartGetByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type CartGetByIdQuery = { order?: { createdAt: unknown } | null };
+
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -372,6 +379,13 @@ export const FragmentProductFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"FragmentProduct"}) as unknown as TypedDocumentString<FragmentProductFragment, unknown>;
+export const CartGetByIdDocument = new TypedDocumentString(`
+    query CartGetById($id: ID!) {
+  order(id: $id) {
+    createdAt
+  }
+}
+    `) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
 export const CategoriesDocument = new TypedDocumentString(`
     query Categories {
   categories {
