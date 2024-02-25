@@ -69,7 +69,7 @@ const ProductPage = async ({ params }: Product) => {
 		return (
 			<>
 				<div className="text-gray-900">
-					<SingleProductPage singlePage={true} product={product} />
+					<SingleProductPage product={product} />
 				</div>
 				<aside>
 					<Suspense fallback={<div>Loading...</div>}>

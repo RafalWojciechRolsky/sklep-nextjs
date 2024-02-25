@@ -13,6 +13,8 @@
 		"next/core-web-vitals"
 	],
 	"rules": {
+		"@typescript-eslint/no-unsafe-return": "error",
+
 		// sort imports
 		"import/order": "error",
 
@@ -81,6 +83,7 @@
 			}
 		]
 	},
+
 	"overrides": [
 		{
 			"files": ["src/app/**/*.ts?(x)", "middleware.ts"],

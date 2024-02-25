@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { CategoriesDocument, CollectionsDocument } from "@/gql/graphql";
@@ -51,7 +52,9 @@ export const Header = async () => {
 					})}
 				</ul>
 				<SearchInput />
-				<Cart />
+				<Link href={"/cart"}>
+					<Cart />
+				</Link>
 			</nav>
 		</header>
 	);

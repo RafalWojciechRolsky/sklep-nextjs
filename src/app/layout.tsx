@@ -30,8 +30,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	modal,
 }: Readonly<{
 	children: React.ReactNode;
+	modal: React.ReactNode;
 }>) {
 	return (
 		<html lang="pl" className={`${firaCode.variable} ${firaSans.variable} ${montserrat.variable}`}>
@@ -41,6 +43,7 @@ export default function RootLayout({
 					{children}
 				</section>
 				<Footer />
+				{modal}
 			</body>
 		</html>
 	);
