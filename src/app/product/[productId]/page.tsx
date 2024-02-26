@@ -2,11 +2,11 @@ import { type Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { type ProductOnPage } from "@/types/types";
-import { SingleProductPage } from "@/components/molecules/SingleProductPage";
 import { SugestedProducts } from "@/components/organisms/SugestedProducts";
 // import { ProductGetByIdDocument, ProductsGetIdsListDocument } from "@/gql/graphql";
 import { ProductGetByIdDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/utils/executeGraphql";
+import { SingleProductPage } from "@/components/molecules/SingleProductPage";
 
 interface Product {
 	params: { productId: string };
@@ -69,7 +69,7 @@ const ProductPage = async ({ params }: Product) => {
 		return (
 			<>
 				<div className="text-gray-900">
-					<SingleProductPage product={product} />
+					<SingleProductPage product={product} params={params} />
 				</div>
 				<aside>
 					<Suspense fallback={<div>Loading...</div>}>
