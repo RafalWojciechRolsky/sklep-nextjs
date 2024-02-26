@@ -1,31 +1,20 @@
 import { cookies } from "next/headers";
-import { executeGraphql } from "@/utils/executeGraphql";
-import { CartIdFindOrCreateDocument } from "@/gql/graphql";
+import { getCartById } from "@/utils/getCartById";
+import { createCart } from "@/utils/createCart";
 
 export const getOrCreateCartId = async () => {
 	const cartId = cookies().get("cartId")?.value;
 
-	if (!cartId) {
-		try {
-			const graphqlResponse = await executeGraphql(CartIdFindOrCreateDocument, {});
-
-			cookies().set("cartId", graphqlResponse.cartFindOrCreate.id, {
-				httpOnly: true,
-				sameSite: "lax",
-			});
-			return graphqlResponse.cartFindOrCreate.id;
-		} catch (error) {
-			console.log(error);
+	if (cartId) {
+		const cart = await getCartById(cartId);
+		if (cart) {
+			return cart;
 		}
 	} else {
-		try {
-			const graphqlResponse = await executeGraphql(CartIdFindOrCreateDocument, {
-				id: cartId,
-			});
-
-			return graphqlResponse.cartFindOrCreate.id;
-		} catch (error) {
-			console.log(error);
+		const cart = await createCart();
+		if (!cart) {
+			throw new Error("Could not create cart");
 		}
+		return cart;
 	}
 };

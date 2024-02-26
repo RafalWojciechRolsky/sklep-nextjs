@@ -2,31 +2,15 @@ import { type ProductOnPage } from "@/types/types";
 import { SingleProductDescription } from "@/components/atoms/SingleProductDescription";
 import { SingleProductImage } from "@/components/atoms/SingleProductImage";
 import { AddToCartButton } from "@/components/atoms/AddToCartButton";
-import { addProductToCart } from "@/utils/addProductToCart";
-import { getOrCreateCartId } from "@/utils/getOrCreateCartId";
+import { addProductToCartAction } from "@/app/actions/addProductToCartAction";
 
 export const SingleProductPage = async ({
 	product,
-	params,
 }: {
 	product: ProductOnPage;
 	params: { productId: string };
 }) => {
 	const { name, imageSrc, type, price, description = "" } = product;
-
-	const addProductToCartAction = async (formData: FormData) => {
-		"use server";
-
-		const cartId = await getOrCreateCartId();
-
-		if (cartId) {
-			if (params.productId === formData.get("product.id")) {
-				await addProductToCart(cartId, params.productId, Number(formData.get("quantity")));
-			}
-		} else {
-			console.log("No CartId");
-		}
-	};
 
 	return (
 		<article className="mx-auto mb-10 flex max-w-[45rem] flex-row items-start justify-center gap-10 p-4">

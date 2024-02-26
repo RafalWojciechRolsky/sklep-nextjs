@@ -1,10 +1,9 @@
+import { cookies } from "next/headers";
 import { CartTable } from "@/components/molecules/CartTable";
-import { getOrCreateCartId } from "@/utils/getOrCreateCartId";
 import { getProductsFromCart } from "@/utils/getProductsFromCart";
 
 const CartPage = async () => {
-	const cartId = await getOrCreateCartId();
-
+	const cartId = cookies().get("cartId")?.value;
 	if (!cartId) {
 		return (
 			<div>
@@ -12,15 +11,23 @@ const CartPage = async () => {
 			</div>
 		);
 	}
+	try {
+		const products = (await getProductsFromCart(cartId)) || [];
 
-	const products = (await getProductsFromCart(cartId)) || [];
-
-	return (
-		<div className="">
-			<h1>Koszyk</h1>
-			<CartTable products={products} />
-		</div>
-	);
+		return (
+			<div className="">
+				<h1>Koszyk</h1>
+				<CartTable products={products} />
+			</div>
+		);
+	} catch (error) {
+		console.log(error);
+		return (
+			<div className="">
+				<h1>Koszyk jest pusty</h1>
+			</div>
+		);
+	}
 };
 
 export default CartPage;
