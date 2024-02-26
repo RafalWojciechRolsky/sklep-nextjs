@@ -1,4 +1,4 @@
-query Collection($slug: String!) {
+query CollectionGetBySlug($slug: String!) {
 	collection(slug: $slug) {
 		name
 		slug

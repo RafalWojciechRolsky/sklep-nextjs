@@ -298,17 +298,17 @@ export type CategoryGetBySlugQueryVariables = Exact<{
 
 export type CategoryGetBySlugQuery = { category?: { name: string } | null };
 
-export type CollectionQueryVariables = Exact<{
+export type CollectionGetBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type CollectionQuery = { collection?: { name: string, slug: string, id: string, products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } | null };
+export type CollectionGetBySlugQuery = { collection?: { name: string, slug: string, id: string, products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } | null };
 
-export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
+export type CollectionsGetAllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CollectionsQuery = { collections: { data: Array<{ name: string, slug: string, id: string }> } };
+export type CollectionsGetAllQuery = { collections: { data: Array<{ name: string, slug: string, id: string }> } };
 
 export type FragmentProductFragment = { id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> };
 
@@ -427,8 +427,8 @@ export const CategoryGetBySlugDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CategoryGetBySlugQuery, CategoryGetBySlugQueryVariables>;
-export const CollectionDocument = new TypedDocumentString(`
-    query Collection($slug: String!) {
+export const CollectionGetBySlugDocument = new TypedDocumentString(`
+    query CollectionGetBySlug($slug: String!) {
   collection(slug: $slug) {
     name
     slug
@@ -448,9 +448,9 @@ export const CollectionDocument = new TypedDocumentString(`
   images {
     url
   }
-}`) as unknown as TypedDocumentString<CollectionQuery, CollectionQueryVariables>;
-export const CollectionsDocument = new TypedDocumentString(`
-    query Collections {
+}`) as unknown as TypedDocumentString<CollectionGetBySlugQuery, CollectionGetBySlugQueryVariables>;
+export const CollectionsGetAllDocument = new TypedDocumentString(`
+    query CollectionsGetAll {
   collections {
     data {
       name
@@ -459,7 +459,7 @@ export const CollectionsDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<CollectionsQuery, CollectionsQueryVariables>;
+    `) as unknown as TypedDocumentString<CollectionsGetAllQuery, CollectionsGetAllQueryVariables>;
 export const ProductAddToCartDocument = new TypedDocumentString(`
     mutation ProductAddToCart($id: ID!, $productId: String!, $quantity: Int!) {
   cartAddItem(
