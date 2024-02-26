@@ -1,8 +1,9 @@
 import { type ProductOnPage } from "@/types/types";
 import { SingleProductDescription } from "@/components/atoms/SingleProductDescription";
 import { SingleProductImage } from "@/components/atoms/SingleProductImage";
-import { getOrCreateCart } from "@/utils/getOrCreateCart";
+import { AddToCartButton } from "@/components/atoms/AddToCartButton";
 import { addProductToCart } from "@/utils/addProductToCart";
+import { getOrCreateCartId } from "@/utils/getOrCreateCartId";
 
 export const SingleProductPage = async ({
 	product,
@@ -16,10 +17,14 @@ export const SingleProductPage = async ({
 	const addProductToCartAction = async (formData: FormData) => {
 		"use server";
 
-		const cartId = (await getOrCreateCart()) as string;
+		const cartId = await getOrCreateCartId();
 
-		if (params.productId === formData.get("product.id")) {
-			await addProductToCart(cartId, params.productId);
+		if (cartId) {
+			if (params.productId === formData.get("product.id")) {
+				await addProductToCart(cartId, params.productId, Number(formData.get("quantity")));
+			}
+		} else {
+			console.log("No CartId");
 		}
 	};
 
@@ -28,12 +33,7 @@ export const SingleProductPage = async ({
 			<div>
 				<SingleProductDescription name={name} type={type} price={price} description={description} />
 				<form action={addProductToCartAction}>
-					<button
-						type="submit"
-						className="mr-6 rounded-sm border bg-slate-200 px-6 py-2 shadow-sm transition-all duration-200 hover:shadow-md"
-					>
-						Do Koszyka
-					</button>
+					<AddToCartButton />
 					<input type="hidden" value={product.id} name="product.id" />
 					<input type="hidden" value={product.name} name="product.name" />
 					<input type="number" min={1} max={10} name="quantity" placeholder="1" defaultValue={1} />

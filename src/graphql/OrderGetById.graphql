@@ -1,0 +1,8 @@
+query OrderGetById($id: ID!) {
+	order(id: $id) {
+		id
+		status
+		totalAmount
+		lines
+	}
+}

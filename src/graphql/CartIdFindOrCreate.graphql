@@ -1,4 +1,4 @@
-mutation CartFindOrCreate($id: ID) {
+mutation CartIdFindOrCreate($id: ID) {
 	cartFindOrCreate(id: $id, input: {}) {
 		id
 	}

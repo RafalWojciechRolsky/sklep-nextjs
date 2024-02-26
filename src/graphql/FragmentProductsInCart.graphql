@@ -1,0 +1,10 @@
+fragment FragmentProductsInCart on Cart {
+	items {
+		product {
+			id
+			name
+			price
+		}
+		quantity
+	}
+}
