@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { notFound } from "next/navigation";
 import { type Metadata } from "next";
 import { ProductList } from "@/components/organisms/ProductList";
-import { CollectionDocument, type FragmentProductFragment } from "@/gql/graphql";
+import { CollectionGetBySlugDocument, type FragmentProductFragment } from "@/gql/graphql";
 import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
 
 const CollectionPage = async ({ params }: { params: { collection: string } }) => {
-	const graphqlResponseCollections = await executeGraphql(CollectionDocument, {
+	const graphqlResponseCollections = await executeGraphql(CollectionGetBySlugDocument, {
 		slug: params.collection,
 	});
 	const productsResponse = graphqlResponseCollections.collection
@@ -43,10 +45,11 @@ export const generateMetadata = async ({
 }: {
 	params: { collection: string };
 }): Promise<Metadata> => {
-	const graphqlResponseCollections = await executeGraphql(CollectionDocument, {
+	const graphqlResponseCollections = await executeGraphql(CollectionGetBySlugDocument, {
 		slug: params.collection,
 	});
-	const title = graphqlResponseCollections.collection?.name;
+
+	const title = graphqlResponseCollections.collection?.name as string;
 	const description = "Wszystko co najlepsze - mojadomena.pl";
 
 	return {
