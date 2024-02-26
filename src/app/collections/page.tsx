@@ -1,9 +1,9 @@
 import { executeGraphql } from "@/utils/executeGraphql";
-import { CollectionsDocument } from "@/gql/graphql";
+import { CollectionsGetAllDocument } from "@/gql/graphql";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 
 const CollectionsPage = async () => {
-	const graphqlResponseCollections = await executeGraphql(CollectionsDocument, {});
+	const graphqlResponseCollections = await executeGraphql(CollectionsGetAllDocument, {});
 	const collections = graphqlResponseCollections.collections.data;
 
 	return (

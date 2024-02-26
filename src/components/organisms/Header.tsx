@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { executeGraphql } from "@/utils/executeGraphql";
-import { CategoriesDocument, CollectionsDocument } from "@/gql/graphql";
+import { CategoriesDocument, CollectionsGetAllDocument } from "@/gql/graphql";
 import { Cart } from "@/components/molecules/Cart";
 import { SearchInput } from "@/components/atoms/SearchInput";
 
 export const Header = async () => {
 	const graphqlResponse = await executeGraphql(CategoriesDocument, {});
-	const graphqlResponseCollections = await executeGraphql(CollectionsDocument, {});
+	const graphqlResponseCollections = await executeGraphql(CollectionsGetAllDocument, {});
 
 	const collections = graphqlResponseCollections.collections.data;
 	const categories = graphqlResponse.categories.data;
