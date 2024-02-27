@@ -18,7 +18,7 @@ const ModalPage = async () => {
 		);
 	}
 	try {
-		const products = (await getProductsFromCart(cartId)) || [];
+		const products = (await getProductsFromCart()) || [];
 
 		return (
 			<>

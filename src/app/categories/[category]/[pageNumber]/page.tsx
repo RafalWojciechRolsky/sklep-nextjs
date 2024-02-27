@@ -18,13 +18,22 @@ const CategoryProductPage = async ({
 	params: { [key: string]: string };
 	searchParams: { take: string };
 }) => {
-	const graphqlResponseCategories = await executeGraphql(CategoriesDocument, {});
-	const graphqlResponseCategoriesList = graphqlResponseCategories.categories.data;
-	const graphqlResponseCategoryName = await executeGraphql(CategoryGetBySlugDocument, {
-		slug: params.category as string,
+	const graphqlResponseCategories = await executeGraphql({
+		query: CategoriesDocument,
+		variables: {},
 	});
-	const graphqlResponse = await executeGraphql(ProductsGetByCategoryDocument, {
-		slug: params.category as string,
+	const graphqlResponseCategoriesList = graphqlResponseCategories.categories.data;
+	const graphqlResponseCategoryName = await executeGraphql({
+		query: CategoryGetBySlugDocument,
+		variables: {
+			slug: params.category as string,
+		},
+	});
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetByCategoryDocument,
+		variables: {
+			slug: params.category as string,
+		},
 	});
 
 	const testCategory = graphqlResponseCategoriesList.filter((obj) => {
@@ -66,8 +75,11 @@ export const generateMetadata = async ({
 }: {
 	params: { category: string };
 }): Promise<Metadata> => {
-	const graphqlResponseCategoryName = await executeGraphql(CategoryGetBySlugDocument, {
-		slug: params.category,
+	const graphqlResponseCategoryName = await executeGraphql({
+		query: CategoryGetBySlugDocument,
+		variables: {
+			slug: params.category,
+		},
 	});
 
 	const title = `Kategoria produktów: ${graphqlResponseCategoryName.category?.name}`;
@@ -100,9 +112,15 @@ export const generateMetadata = async ({
 };
 
 export const generateStaticParams = async ({ params }: { params: { category: string } }) => {
-	const graphqlResponseCategories = await executeGraphql(CategoriesDocument, {});
-	const graphqlResponse = await executeGraphql(ProductsNameGetByCategoryDocument, {
-		slug: params.category,
+	const graphqlResponseCategories = await executeGraphql({
+		query: CategoriesDocument,
+		variables: {},
+	});
+	const graphqlResponse = await executeGraphql({
+		query: ProductsNameGetByCategoryDocument,
+		variables: {
+			slug: params.category,
+		},
 	});
 
 	const totalProducts = graphqlResponse.category?.products.length;

@@ -2,14 +2,14 @@ import { ShoppingCart } from "lucide-react";
 import { type FC } from "react";
 
 interface IPropsTypes {
-	name?: string;
+	quantity: number;
 }
 
-export const Cart: FC<IPropsTypes> = (_props) => {
+export const CartInHeader: FC<IPropsTypes> = ({ quantity }) => {
 	return (
 		<section className="flex cursor-pointer flex-row gap-3 transition-all duration-300 ease-out hover:text-slate-900">
 			<ShoppingCart size={20} />
-			<span> 0</span>
+			<span> {quantity}</span>
 		</section>
 	);
 };

@@ -2,15 +2,27 @@ import Link from "next/link";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { CategoriesDocument, CollectionsGetAllDocument } from "@/gql/graphql";
-import { Cart } from "@/components/molecules/Cart";
+import { getProductsFromCart } from "@/utils/getProductsFromCart";
 import { SearchInput } from "@/components/atoms/SearchInput";
+import { CartInHeader } from "@/components/molecules/CartInHeader";
 
 export const Header = async () => {
-	const graphqlResponse = await executeGraphql(CategoriesDocument, {});
-	const graphqlResponseCollections = await executeGraphql(CollectionsGetAllDocument, {});
+	const graphqlResponse = await executeGraphql({ query: CategoriesDocument, variables: {} });
+	const graphqlResponseCollections = await executeGraphql({
+		query: CollectionsGetAllDocument,
+		variables: {},
+	});
+	const products = await getProductsFromCart();
 
 	const collections = graphqlResponseCollections.collections.data;
 	const categories = graphqlResponse.categories.data;
+	let quantity: number;
+
+	if (products) {
+		quantity = products.reduce((acc, product) => acc + product.quantity, 0);
+	} else {
+		quantity = 0;
+	}
 
 	const navLinks = [
 		{ href: "/", label: "Home", exact: true },
@@ -53,7 +65,7 @@ export const Header = async () => {
 				</ul>
 				<SearchInput />
 				<Link href={"/cart"}>
-					<Cart />
+					<CartInHeader quantity={quantity} />
 				</Link>
 			</nav>
 		</header>

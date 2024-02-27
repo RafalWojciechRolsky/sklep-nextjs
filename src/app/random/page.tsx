@@ -5,13 +5,16 @@ import { ProductList } from "@/components/organisms/ProductList";
 import { type ProductOnPage } from "@/types/types";
 
 const RandomPage = async () => {
-	const graphqlResponseIds = await executeGraphql(ProductsGetIdsListDocument, {});
+	const graphqlResponseIds = await executeGraphql({
+		query: ProductsGetIdsListDocument,
+		variables: {},
+	});
 	const listOfIds = graphqlResponseIds.products.data;
 
 	const selectedElements = getRandomElements(listOfIds, 4);
 	const randomProducts = await Promise.all(
 		selectedElements.map(async (el) => {
-			return executeGraphql(ProductGetByIdDocument, { id: el.id });
+			return executeGraphql({ query: ProductGetByIdDocument, variables: { id: el.id } });
 		}),
 	);
 

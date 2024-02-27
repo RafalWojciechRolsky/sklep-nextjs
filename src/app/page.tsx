@@ -4,9 +4,12 @@ import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
 
 const HomePage = async ({ searchParams }: { searchParams: { take: string; skip: string } }) => {
-	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {
-		take: +searchParams.take || 8,
-		skip: +searchParams.skip || 0,
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetListDocument,
+		variables: {
+			take: +searchParams.take || 8,
+			skip: +searchParams.skip || 0,
+		},
 	});
 
 	const products: ProductOnPage[] = graphqlResponse.products.data.map((product) => {

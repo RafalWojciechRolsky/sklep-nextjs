@@ -3,7 +3,10 @@ import { CollectionsGetAllDocument } from "@/gql/graphql";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 
 const CollectionsPage = async () => {
-	const graphqlResponseCollections = await executeGraphql(CollectionsGetAllDocument, {});
+	const graphqlResponseCollections = await executeGraphql({
+		query: CollectionsGetAllDocument,
+		variables: {},
+	});
 	const collections = graphqlResponseCollections.collections.data;
 
 	return (

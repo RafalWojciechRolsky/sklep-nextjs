@@ -37,10 +37,14 @@ const nextConfig = {
 				protocol: "https",
 				hostname: "static-ourstore.hyperfunctor.com",
 			},
+			{
+				protocol: "http",
+				hostname: "localhost:3000",
+			},
 		],
 	},
 	publicRuntimeConfig: {
-		metadataBase: "https://sklep-nextjs-theta.vercel.app/",
+		metadataBase: "http://localhost:3000",
 	},
 };
 

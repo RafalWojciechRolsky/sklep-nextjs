@@ -24,7 +24,10 @@ export const generateMetadata = async ({
 }: {
 	params: { productId: string };
 }): Promise<Metadata> => {
-	const graphqlResponse = await executeGraphql(ProductGetByIdDocument, { id: params.productId });
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: { id: params.productId },
+	});
 	return {
 		title: graphqlResponse.product?.name,
 		description: graphqlResponse.product?.description,
@@ -53,8 +56,11 @@ export const generateMetadata = async ({
 
 const ProductPage = async ({ params }: Product) => {
 	try {
-		const graphqlResponse = await executeGraphql(ProductGetByIdDocument, {
-			id: params.productId,
+		const graphqlResponse = await executeGraphql({
+			query: ProductGetByIdDocument,
+			variables: {
+				id: params.productId,
+			},
 		});
 
 		const product: ProductOnPage = {

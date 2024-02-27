@@ -1,12 +1,10 @@
 "use client";
 
-import { type FC } from "react";
 import { useFormStatus } from "react-dom";
 
-interface IPropsTypes {}
-
-export const AddToCartButton: FC<IPropsTypes> = () => {
+export const AddToCartButton = () => {
 	const formStatus = useFormStatus();
+
 	return (
 		<button
 			type="submit"

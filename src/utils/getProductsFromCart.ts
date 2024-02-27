@@ -2,16 +2,21 @@ import { cookies } from "next/headers";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { CartProductsGetByCartIdDocument } from "@/gql/graphql";
 
-export const getProductsFromCart = async (cartId: string) => {
-	const cartIdFromCookie = cookies().get("cartId")?.value;
+export const getProductsFromCart = async () => {
+	const cartId = cookies().get("cartId")?.value;
 
-	if (cartIdFromCookie === cartId) {
-		const graphqlResponse = await executeGraphql(CartProductsGetByCartIdDocument, {
-			id: cartId,
+	if (cartId) {
+		const graphqlResponse = await executeGraphql({
+			query: CartProductsGetByCartIdDocument,
+			variables: {
+				id: cartId,
+			},
+			next: {
+				tags: ["cart"],
+			},
 		});
 		return graphqlResponse.cart?.items;
 	}
 
-	console.log("cookie id !== session id");
 	return [];
 };

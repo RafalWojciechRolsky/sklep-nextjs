@@ -3,7 +3,7 @@ import { CategoriesDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/utils/executeGraphql";
 
 export const generateStaticParams = async () => {
-	const graphqlResponse = await executeGraphql(CategoriesDocument, {});
+	const graphqlResponse = await executeGraphql({ query: CategoriesDocument, variables: {} });
 	return graphqlResponse.categories.data.map((category) => {
 		return { category: category.slug };
 	});

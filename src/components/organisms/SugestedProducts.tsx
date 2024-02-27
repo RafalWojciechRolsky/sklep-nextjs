@@ -6,7 +6,10 @@ import { executeGraphql } from "@/utils/executeGraphql";
 // const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const SugestedProducts = async () => {
-	const graphqlResponse = await executeGraphql(ProductsGetListDocument, { take: 4 });
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetListDocument,
+		variables: { take: 4 },
+	});
 
 	const products: ProductOnPage[] = graphqlResponse.products.data.map((product) => {
 		return {

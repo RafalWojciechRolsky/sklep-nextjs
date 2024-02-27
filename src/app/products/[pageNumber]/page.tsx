@@ -19,10 +19,13 @@ const ProductsPage = async ({
 	}
 	const skip = (pageNumber - 1) * (+searchParams.take || defaultTake);
 
-	const numberOfproducts = await executeGraphql(ProductsListAllDocument, {});
-	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {
-		take: +searchParams.take || defaultTake,
-		skip: skip,
+	const numberOfproducts = await executeGraphql({ query: ProductsListAllDocument, variables: {} });
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetListDocument,
+		variables: {
+			take: +searchParams.take || defaultTake,
+			skip: skip,
+		},
 	});
 
 	const take = +searchParams.take || defaultTake;

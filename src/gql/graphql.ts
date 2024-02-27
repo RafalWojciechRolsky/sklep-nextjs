@@ -272,6 +272,15 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type ChangeItemQuantityMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+  quantity: Scalars['Int']['input'];
+}>;
+
+
+export type ChangeItemQuantityMutation = { cartChangeItemQuantity: { items: Array<{ quantity: number }> } };
+
 export type CartIdFindOrCreateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
 }>;
@@ -416,6 +425,15 @@ export const FragmentProductsInCartFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"FragmentProductsInCart"}) as unknown as TypedDocumentString<FragmentProductsInCartFragment, unknown>;
+export const ChangeItemQuantityDocument = new TypedDocumentString(`
+    mutation ChangeItemQuantity($cartId: ID!, $productId: ID!, $quantity: Int!) {
+  cartChangeItemQuantity(id: $cartId, productId: $productId, quantity: $quantity) {
+    items {
+      quantity
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ChangeItemQuantityMutation, ChangeItemQuantityMutationVariables>;
 export const CartIdFindOrCreateDocument = new TypedDocumentString(`
     mutation CartIdFindOrCreate($id: ID) {
   cartFindOrCreate(id: $id, input: {}) {

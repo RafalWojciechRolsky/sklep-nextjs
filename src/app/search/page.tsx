@@ -16,8 +16,11 @@ const SearchPage = async ({ searchParams }: { searchParams: { query: string } })
 		);
 	}
 
-	const graphqlResponse = await executeGraphql(ProductsSearchListDocument, {
-		search: searchParams.query,
+	const graphqlResponse = await executeGraphql({
+		query: ProductsSearchListDocument,
+		variables: {
+			search: searchParams.query,
+		},
 	});
 
 	const products: ProductOnPage[] = graphqlResponse.products.data.map((product) => {
