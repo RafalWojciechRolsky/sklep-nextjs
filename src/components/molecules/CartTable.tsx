@@ -35,7 +35,7 @@ export const CartTable: FC<IPropsTypes> = ({ products }) => {
 						<td className="px-4">{product.price}</td>
 						<td className="px-4">{product.price * quantity}</td>
 						<td className="px-4">
-							<RemoveButton />
+							<RemoveButton cartId={cartId} productId={product.id} />
 						</td>
 					</tr>
 				))}

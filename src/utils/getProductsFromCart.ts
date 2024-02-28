@@ -11,6 +11,7 @@ export const getProductsFromCart = async () => {
 			variables: {
 				id: cartId,
 			},
+			cache: "no-cache",
 			next: {
 				tags: ["cart"],
 			},

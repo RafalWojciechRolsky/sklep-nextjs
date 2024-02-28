@@ -295,6 +295,14 @@ export type CartProductsGetByCartIdQueryVariables = Exact<{
 
 export type CartProductsGetByCartIdQuery = { cart?: { id: string, items: Array<{ quantity: number, product: { id: string, name: string, price: number } }> } | null };
 
+export type CartRemoveItemMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+}>;
+
+
+export type CartRemoveItemMutation = { cartRemoveItem: { items: Array<{ product: { id: string, name: string } }> } };
+
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -456,6 +464,18 @@ export const CartProductsGetByCartIdDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CartProductsGetByCartIdQuery, CartProductsGetByCartIdQueryVariables>;
+export const CartRemoveItemDocument = new TypedDocumentString(`
+    mutation CartRemoveItem($cartId: ID!, $productId: ID!) {
+  cartRemoveItem(id: $cartId, productId: $productId) {
+    items {
+      product {
+        id
+        name
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CartRemoveItemMutation, CartRemoveItemMutationVariables>;
 export const CategoriesDocument = new TypedDocumentString(`
     query Categories {
   categories {
