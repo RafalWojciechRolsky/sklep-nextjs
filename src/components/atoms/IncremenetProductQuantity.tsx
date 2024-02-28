@@ -14,24 +14,21 @@ export const IncremenetProductQuantity = ({
 	cartId: string;
 }) => {
 	const [optimisticQuantity, setOptimisticQuantity] = useState(quantity);
-	return (
-		<>
-			<td className="px-4 text-center">{optimisticQuantity}</td>
-			<td className="px-4 text-center">
-				<form>
-					<button
-						className="ml-2 w-8 border bg-slate-300 p-2"
-						formAction={async () => {
-							console.log(quantity, optimisticQuantity + 1);
 
-							setOptimisticQuantity(optimisticQuantity + 1);
-							await changeItemQuantityAction(cartId, productId, optimisticQuantity + 1);
-						}}
-					>
-						+
-					</button>
-				</form>
-			</td>
-		</>
+	return (
+		<div className="flex flex-row items-center">
+			<p>{optimisticQuantity}</p>
+			<form>
+				<button
+					className="ml-2 w-8 border bg-slate-300 p-2"
+					formAction={async () => {
+						setOptimisticQuantity(optimisticQuantity + 1);
+						await changeItemQuantityAction(cartId, productId, optimisticQuantity + 1);
+					}}
+				>
+					+
+				</button>
+			</form>
+		</div>
 	);
 };
