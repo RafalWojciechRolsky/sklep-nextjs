@@ -110,21 +110,20 @@ export default async function CartPage() {
 							>
 								Total
 							</td>
-							<td className="border-t-2 border-gray-200 bg-gray-100 px-5 py-3 text-sm">
+							<td className="border-t-2 border-gray-200 bg-gray-100 px-5 py-3 text-sm" colSpan={2}>
 								{priceFormat(
 									products.reduce((acc, item) => acc + item.quantity * item.product.price, 0),
 									"PL-pl",
 									"PLN",
 								)}
 							</td>
-							<td className="border-t-2 border-gray-200 bg-gray-100 px-5 py-3 text-sm"></td>
 						</tr>
 					</tbody>
 				</table>
 				<form action={handleStripePaymentAction}>
 					<button
 						type="submit"
-						className="w-full rounded-sm border bg-slate-100 px-8 py-2 shadow-sm transition-colors hover:bg-slate-200"
+						className="mt-2 w-full rounded-sm border bg-slate-500 px-8 py-2 text-slate-100 shadow-sm transition-colors hover:bg-slate-700"
 					>
 						Pay
 					</button>
