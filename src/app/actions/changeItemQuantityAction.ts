@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { ChangeItemQuantityDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/utils/executeGraphql";
 
@@ -19,4 +20,5 @@ export const changeItemQuantityAction = async (
 			tags: ["cart"],
 		},
 	});
+	revalidateTag("cart");
 };

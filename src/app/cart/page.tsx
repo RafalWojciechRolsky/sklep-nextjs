@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Stripe from "stripe";
 import { getProductsFromCart } from "@/utils/getProductsFromCart";
 import { priceFormat } from "@/utils/priceFormat";
-import { IncremenetProductQuantity } from "@/components/atoms/IncremenetProductQuantity";
+import { ChangeProductQuantity } from "@/components/atoms/changeProductQuantity";
 import { RemoveButton } from "@/components/atoms/RemoveButton";
 
 export default async function CartPage() {
@@ -13,11 +13,7 @@ export default async function CartPage() {
 		redirect("/");
 	}
 
-	let products = await getProductsFromCart();
-
-	if (!products) {
-		products = [];
-	}
+	const products = (await getProductsFromCart()) || [];
 
 	async function handleStripePaymentAction() {
 		"use server";
@@ -31,10 +27,6 @@ export default async function CartPage() {
 
 		if (!cartId) {
 			redirect("/");
-		}
-
-		if (!products) {
-			products = [];
 		}
 
 		const checkoutSession = await stripe.checkout.sessions.create({
@@ -96,7 +88,7 @@ export default async function CartPage() {
 										{item.product.name}
 									</td>
 									<td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-										<IncremenetProductQuantity
+										<ChangeProductQuantity
 											productId={item.product.id}
 											cartId={cartId}
 											quantity={item.quantity}
