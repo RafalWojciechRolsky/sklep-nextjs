@@ -315,6 +315,13 @@ export type CategoryGetBySlugQueryVariables = Exact<{
 
 export type CategoryGetBySlugQuery = { category?: { name: string } | null };
 
+export type CategoryGetBySlugWithProductsImagesQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type CategoryGetBySlugWithProductsImagesQuery = { category?: { name: string, products: Array<{ images: Array<{ url: string }> }> } | null };
+
 export type CollectionGetBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
@@ -494,6 +501,18 @@ export const CategoryGetBySlugDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CategoryGetBySlugQuery, CategoryGetBySlugQueryVariables>;
+export const CategoryGetBySlugWithProductsImagesDocument = new TypedDocumentString(`
+    query CategoryGetBySlugWithProductsImages($slug: String!) {
+  category(slug: $slug) {
+    name
+    products {
+      images {
+        url
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryGetBySlugWithProductsImagesQuery, CategoryGetBySlugWithProductsImagesQueryVariables>;
 export const CollectionGetBySlugDocument = new TypedDocumentString(`
     query CollectionGetBySlug($slug: String!) {
   collection(slug: $slug) {

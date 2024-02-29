@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
@@ -31,3 +32,13 @@ export default async function SuccessCartPage({
 		</section>
 	);
 }
+
+export const generateMetadata = async (): Promise<Metadata> => {
+	const title = "Strona koszyka - zamówienie przyjęte z sukcesem";
+	const description = "Wszystko co najlepsze - mojadomena.pl";
+
+	return {
+		title,
+		description,
+	};
+};

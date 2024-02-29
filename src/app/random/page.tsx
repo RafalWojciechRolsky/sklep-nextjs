@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { ProductGetByIdDocument, ProductsGetIdsListDocument } from "@/gql/graphql";
 import { getRandomElements } from "@/utils/getRandomElement";
@@ -37,3 +38,13 @@ const RandomPage = async () => {
 };
 
 export default RandomPage;
+
+export const generateMetadata = async (): Promise<Metadata> => {
+	const title = "4 losowe produkty";
+	const description = `${title} - mojadomena.pl`;
+
+	return {
+		title,
+		description,
+	};
+};

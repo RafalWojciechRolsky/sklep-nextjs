@@ -1,4 +1,4 @@
-// import { type Metadata } from "next";
+import { type Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { type ProductOnPage } from "@/types/types";
@@ -19,40 +19,40 @@ interface Product {
 // 	});
 // };
 
-// export const generateMetadata = async ({
-// 	params,
-// }: {
-// 	params: { productId: string };
-// }): Promise<Metadata> => {
-// 	const graphqlResponse = await executeGraphql({
-// 		query: ProductGetByIdDocument,
-// 		variables: { id: params.productId },
-// 	});
-// 	return {
-// 		title: graphqlResponse.product?.name,
-// 		description: graphqlResponse.product?.description,
-// 		openGraph: {
-// 			title: `${graphqlResponse.product?.name} - Dostępny na mojadomena.pl`,
-// 			description: graphqlResponse.product?.description,
-// 			images: [
-// 				{
-// 					url: graphqlResponse.product?.images[0]?.url || "",
-// 					width: 800,
-// 					height: 600,
-// 					alt: graphqlResponse.product?.name,
-// 				},
-// 			],
-// 			url: `http://localhost:3000/product/${params.productId}`,
-// 		},
-// 		twitter: {
-// 			site: "@MyTwitter",
-// 			title: `${graphqlResponse.product?.name} - Dostępny na mojadomena.pl`,
-// 			description: graphqlResponse.product?.description,
-// 			images: `http://localhost:3000/images/${graphqlResponse.product?.categories[0]?.name}`,
-// 		},
-// 		metadataBase: new URL("http://localhost:3000"),
-// 	};
-// };
+export const generateMetadata = async ({
+	params,
+}: {
+	params: { productId: string };
+}): Promise<Metadata> => {
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: { id: params.productId },
+	});
+	return {
+		title: graphqlResponse.product?.name,
+		description: graphqlResponse.product?.description,
+		// openGraph: {
+		// 	title: `${graphqlResponse.product?.name} - Dostępny na mojadomena.pl`,
+		// 	description: graphqlResponse.product?.description,
+		// 	images: [
+		// 		{
+		// 			url: graphqlResponse.product?.images[0]?.url || "",
+		// 			width: 800,
+		// 			height: 600,
+		// 			alt: graphqlResponse.product?.name,
+		// 		},
+		// 	],
+		// 	url: `http://localhost:3000/product/${params.productId}`,
+		// },
+		// twitter: {
+		// 	site: "@MyTwitter",
+		// 	title: `${graphqlResponse.product?.name} - Dostępny na mojadomena.pl`,
+		// 	description: graphqlResponse.product?.description,
+		// 	images: `http://localhost:3000/images/${graphqlResponse.product?.categories[0]?.name}`,
+		// },
+		// metadataBase: new URL("http://localhost:3000"),
+	};
+};
 
 const ProductPage = async ({ params }: Product) => {
 	try {

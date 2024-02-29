@@ -1,20 +1,21 @@
-import getConfig from "next/config";
-import type { Metadata } from "next";
+// import getConfig from "next/config";
+// import type { Metadata } from "next";
 import { Fira_Code, Fira_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
+import { type Metadata } from "next";
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
 
-interface PublicRuntimeConfig {
-	metadataBase: string;
-}
+// interface PublicRuntimeConfig {
+// 	metadataBase: string;
+// }
 
-interface Config {
-	publicRuntimeConfig: PublicRuntimeConfig;
-}
+// interface Config {
+// 	publicRuntimeConfig: PublicRuntimeConfig;
+// }
 
-const { publicRuntimeConfig } = getConfig() as Config;
-const { metadataBase } = publicRuntimeConfig;
+// const { publicRuntimeConfig } = getConfig() as Config;
+// const { metadataBase } = publicRuntimeConfig;
 
 const firaCode = Fira_Code({
 	subsets: ["latin"],
@@ -38,35 +39,35 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
 	title: "Sklep Testowy - Next JS 14 Masters",
 	description: "Tutorial Next JS Masters",
-	openGraph: {
-		title: "Sklep Testowy - Next JS 14 Masters",
-		description: "Tutorial Next JS Masters",
-		url: metadataBase,
-		siteName: "Next.js",
-		images: [
-			{
-				url: `${metadataBase}/_next/image?url=https%3A%2F%2Fstatic-ourstore.hyperfunctor.com%2Fuploads%2FLe_Xqj_A3d_Tl_S6lyl5w87u_5e18f7a94f.png&w=384&q=75`,
-				width: 800,
-				height: 600,
-			},
-			{
-				url: `${metadataBase}/_next/image?url=https%3A%2F%2Fstatic-ourstore.hyperfunctor.com%2Fuploads%2FLe_Xqj_A3d_Tl_S6lyl5w87u_5e18f7a94f.png&w=384&q=75`,
-				width: 1800,
-				height: 1600,
-				alt: "My custom alt",
-			},
-		],
-		locale: "en_US",
-		type: "website",
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: "Sklep Testowy - Next JS 14 Masters",
-		description: "Tutorial Next JS Masters",
-		images: [
-			`${metadataBase}/_next/image?url=https%3A%2F%2Fstatic-ourstore.hyperfunctor.com%2Fuploads%2FLe_Xqj_A3d_Tl_S6lyl5w87u_5e18f7a94f.png&w=384&q=75`,
-		],
-	},
+	// openGraph: {
+	// 	title: "Sklep Testowy - Next JS 14 Masters",
+	// 	description: "Tutorial Next JS Masters",
+	// 	url: metadataBase,
+	// 	siteName: "Next.js",
+	// 	images: [
+	// 		{
+	// 			url: `${metadataBase}/_next/image?url=https%3A%2F%2Fstatic-ourstore.hyperfunctor.com%2Fuploads%2FLe_Xqj_A3d_Tl_S6lyl5w87u_5e18f7a94f.png&w=384&q=75`,
+	// 			width: 800,
+	// 			height: 600,
+	// 		},
+	// 		{
+	// 			url: `${metadataBase}/_next/image?url=https%3A%2F%2Fstatic-ourstore.hyperfunctor.com%2Fuploads%2FLe_Xqj_A3d_Tl_S6lyl5w87u_5e18f7a94f.png&w=384&q=75`,
+	// 			width: 1800,
+	// 			height: 1600,
+	// 			alt: "My custom alt",
+	// 		},
+	// 	],
+	// 	locale: "en_US",
+	// 	type: "website",
+	// },
+	// twitter: {
+	// 	card: "summary_large_image",
+	// 	title: "Sklep Testowy - Next JS 14 Masters",
+	// 	description: "Tutorial Next JS Masters",
+	// 	images: [
+	// 		`${metadataBase}/_next/image?url=https%3A%2F%2Fstatic-ourstore.hyperfunctor.com%2Fuploads%2FLe_Xqj_A3d_Tl_S6lyl5w87u_5e18f7a94f.png&w=384&q=75`,
+	// 	],
+	// },
 };
 
 export default function RootLayout({

@@ -70,25 +70,5 @@ export const generateMetadata = async (): Promise<Metadata> => {
 	return {
 		title,
 		description,
-		openGraph: {
-			title,
-			description,
-			images: [
-				{
-					url: "",
-					width: 800,
-					height: 600,
-					alt: "",
-				},
-			],
-			url: `http://localhost:3000/product/`,
-		},
-		twitter: {
-			site: "@MyTwitter",
-			title,
-			description,
-			images: `http://localhost:3000/images/`,
-		},
-		metadataBase: new URL("http://localhost:3000"),
 	};
 };

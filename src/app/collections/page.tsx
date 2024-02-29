@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { CollectionsGetAllDocument } from "@/gql/graphql";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
@@ -31,3 +32,13 @@ const CollectionsPage = async () => {
 };
 
 export default CollectionsPage;
+
+export const generateMetadata = async (): Promise<Metadata> => {
+	const title = "Strona kolekcji";
+	const description = `${title} - mojadomena.pl`;
+
+	return {
+		title,
+		description,
+	};
+};

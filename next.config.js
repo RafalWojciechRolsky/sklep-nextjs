@@ -37,15 +37,15 @@ const nextConfig = {
 				protocol: "https",
 				hostname: "static-ourstore.hyperfunctor.com",
 			},
-			{
-				protocol: "http",
-				hostname: "localhost:3000",
-			},
+			// {
+			// 	protocol: "http",
+			// 	hostname: "localhost:3000",
+			// },
 		],
 	},
-	publicRuntimeConfig: {
-		metadataBase: "http://localhost:3000",
-	},
+	// publicRuntimeConfig: {
+	// 	metadataBase: "http://localhost:3000",
+	// },
 };
 
 const withMDX = require("@next/mdx")();

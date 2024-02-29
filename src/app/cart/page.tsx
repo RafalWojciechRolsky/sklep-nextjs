@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
+import { type Metadata } from "next";
 import { getProductsFromCart } from "@/utils/getProductsFromCart";
 import { priceFormat } from "@/utils/priceFormat";
 import { ChangeProductQuantity } from "@/components/atoms/changeProductQuantity";
@@ -132,3 +133,13 @@ export default async function CartPage() {
 		</div>
 	);
 }
+
+export const generateMetadata = async (): Promise<Metadata> => {
+	const title = "Strona koszyka";
+	const description = "Wszystko co najlepsze - mojadomena.pl";
+
+	return {
+		title,
+		description,
+	};
+};
