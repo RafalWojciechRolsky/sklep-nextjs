@@ -10,11 +10,13 @@ export const size = {
 export const alt = "Open Graph Image";
 export const contentType = "image/png";
 
-export default async function OpengraphImage() {
+export default async function OpengraphImage({ params }: { params: { [key: string]: string } }) {
+	console.log("OpengraphImage: ", params);
+
 	return new ImageResponse(
 		(
 			<div tw="bg-red-400" style={{ width: size.width, height: size.height }}>
-				Siema
+				{JSON.stringify(params, null, 2)}
 			</div>
 		),
 		{
