@@ -30,7 +30,7 @@ export default async function OpengraphImage() {
 			>
 				<p tw="font-sans uppercase m-0 p-0 text-[101px] leading-4">next13</p>
 				<p tw="font-serif m-0 p-0 font-black">masters</p>
-				<p tw="m-0 mt-2">Category</p>
+				<p tw="m-0 mt-2">/</p>
 			</div>
 		),
 		{
