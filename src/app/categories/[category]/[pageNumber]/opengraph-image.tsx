@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { CategoryGetBySlugWithProductsImagesDocument } from "@/gql/graphql";
+import { executeGraphql } from "@/utils/executeGraphql";
 
 export const runtime = "edge";
 
@@ -9,14 +11,20 @@ export const size = {
 
 export const alt = "Open Graph Image";
 export const contentType = "image/png";
-// const title = "Wszystkie produkty";
-// const description = "Wszystko co najlepsze - mojadomena.pl";
+const title = "Kolekcja - Dostępna na mojadomena.pl";
 
-export default async function OpengraphImage() {
+export default async function OpengraphImage({ params }: { params: { category: string } }) {
+	const graphqlResponseCategoryName = await executeGraphql({
+		query: CategoryGetBySlugWithProductsImagesDocument,
+		variables: {
+			slug: params.category,
+		},
+	});
+
 	return new ImageResponse(
 		(
 			<div
-				tw="w-full text-white h-full flex flex-col items-center justify-center text-8xl"
+				tw="w-full text-white h-full flex flex-col items-center justify-center text-4xl"
 				style={{
 					background: `
 				    linear-gradient(
@@ -28,9 +36,14 @@ export default async function OpengraphImage() {
 				    )`,
 				}}
 			>
-				<p tw="font-sans uppercase m-0 p-0 text-[101px] leading-4">next13</p>
-				<p tw="font-serif m-0 p-0 font-black">masters</p>
-				<p tw="m-0 mt-2">Category</p>
+				<p tw="m-0 mt-2 text-center">{title}</p>
+				<p tw="text-center text-white">{graphqlResponseCategoryName.category?.name}</p>
+				<img
+					src={graphqlResponseCategoryName.category?.products[0]?.images[0]?.url || ""}
+					alt={graphqlResponseCategoryName.category?.name || ""}
+					width={size.width / 5}
+					height={size.height / 5}
+				/>
 			</div>
 		),
 		{
@@ -39,8 +52,3 @@ export default async function OpengraphImage() {
 		},
 	);
 }
-
-// <div tw="bg-red-400" style={{ width: size.width, height: size.height }}>
-// 	<h1 tw="text-center text-white">{title} - Dostępny na mojadomena.pl</h1>
-// 	<p tw="text-center text-white">{description}</p>
-// </div>

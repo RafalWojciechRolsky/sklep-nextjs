@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { ProductGetByIdDocument } from "@/gql/graphql";
+import { executeGraphql } from "@/utils/executeGraphql";
 
 export const runtime = "edge";
 
@@ -9,14 +11,19 @@ export const size = {
 
 export const alt = "Open Graph Image";
 export const contentType = "image/png";
-// const title = "Wszystkie produkty";
-// const description = "Wszystko co najlepsze - mojadomena.pl";
 
-export default async function OpengraphImage() {
+export default async function OpengraphImage({ params }: { params: { productId: string } }) {
+	const response = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: { id: params.productId },
+	});
+
+	console.log(response);
+
 	return new ImageResponse(
 		(
 			<div
-				tw="w-full text-white h-full flex flex-col items-center justify-center text-8xl"
+				tw="w-full text-white h-full flex flex-col items-center justify-center text-4xl"
 				style={{
 					background: `
 				    linear-gradient(
@@ -28,9 +35,18 @@ export default async function OpengraphImage() {
 				    )`,
 				}}
 			>
-				<p tw="font-sans uppercase m-0 p-0 text-[101px] leading-4">next13</p>
-				<p tw="font-serif m-0 p-0 font-black">masters</p>
-				<p tw="m-0 mt-2">Product</p>
+				<p tw="font-sans uppercase m-0 p-0 text-[50px] leading-4 mb-1">{response.product?.name}</p>
+				<p tw="text-center text-white text-2xl">{response.product?.categories[0]?.name}</p>
+				<p tw="font-serif m-0 p-0 font-black text-sm px-10 text-center">
+					{response.product?.description}
+				</p>
+				<img
+					tw="mt-4"
+					src={response.product?.images[0]?.url || ""}
+					alt={response.product?.name || ""}
+					width={size.width / 5}
+					height={size.height / 5}
+				/>
 			</div>
 		),
 		{
@@ -39,8 +55,3 @@ export default async function OpengraphImage() {
 		},
 	);
 }
-
-// <div tw="bg-red-400" style={{ width: size.width, height: size.height }}>
-// 	<h1 tw="text-center text-white">{title} - Dostępny na mojadomena.pl</h1>
-// 	<p tw="text-center text-white">{description}</p>
-// </div>

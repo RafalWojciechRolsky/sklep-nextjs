@@ -14,6 +14,7 @@
 	],
 	"rules": {
 		"@typescript-eslint/no-unsafe-return": "error",
+		"@next/next/no-img-element": "off",
 
 		// sort imports
 		"import/order": "error",
