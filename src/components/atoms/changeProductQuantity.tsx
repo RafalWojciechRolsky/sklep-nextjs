@@ -31,7 +31,7 @@ export const ChangeProductQuantity = ({
 					-
 				</button>
 			</form>
-			<p>{optimisticQuantity}</p>
+			<p data-testid="quantity">{optimisticQuantity}</p>
 			<form>
 				<button
 					data-testid="increment"
