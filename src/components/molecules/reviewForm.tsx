@@ -20,9 +20,9 @@ const initState: ReviewFormType = {
 
 const reviews: ReviewFormType[] = [];
 
-export const ReviewForm = ({ productId }: { productId: string }) => {
-	const [review, setReview] = useState<ReviewFormType>(initState);
-	const [optimisticReviews, setOptimisticReviews] = useOptimistic(reviews);
+export const ReviewForm = ({ _productId }: { _productId: string }) => {
+	const [review, _setReview] = useState<ReviewFormType>(initState);
+	const [optimisticReviews, _setOptimisticReviews] = useOptimistic(reviews);
 
 	return (
 		<>
