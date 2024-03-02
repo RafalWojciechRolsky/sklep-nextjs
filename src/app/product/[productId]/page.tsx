@@ -12,48 +12,6 @@ interface Product {
 	params: { productId: string };
 }
 
-// export const generateStaticParams = async () => {
-// 	const graphqlResponse = await executeGraphql(ProductsGetIdsListDocument, {});
-// 	return graphqlResponse.products.data.map((product) => {
-// 		return { productId: product.id };
-// 	});
-// };
-
-export const generateMetadata = async ({
-	params,
-}: {
-	params: { productId: string };
-}): Promise<Metadata> => {
-	const graphqlResponse = await executeGraphql({
-		query: ProductGetByIdDocument,
-		variables: { id: params.productId },
-	});
-	return {
-		title: graphqlResponse.product?.name,
-		description: graphqlResponse.product?.description,
-		// openGraph: {
-		// 	title: `${graphqlResponse.product?.name} - Dostępny na mojadomena.pl`,
-		// 	description: graphqlResponse.product?.description,
-		// 	images: [
-		// 		{
-		// 			url: graphqlResponse.product?.images[0]?.url || "",
-		// 			width: 800,
-		// 			height: 600,
-		// 			alt: graphqlResponse.product?.name,
-		// 		},
-		// 	],
-		// 	url: `http://localhost:3000/product/${params.productId}`,
-		// },
-		// twitter: {
-		// 	site: "@MyTwitter",
-		// 	title: `${graphqlResponse.product?.name} - Dostępny na mojadomena.pl`,
-		// 	description: graphqlResponse.product?.description,
-		// 	images: `http://localhost:3000/images/${graphqlResponse.product?.categories[0]?.name}`,
-		// },
-		// metadataBase: new URL("http://localhost:3000"),
-	};
-};
-
 const ProductPage = async ({ params }: Product) => {
 	try {
 		const graphqlResponse = await executeGraphql({
@@ -77,6 +35,7 @@ const ProductPage = async ({ params }: Product) => {
 				<div className="text-gray-900">
 					<SingleProductPage product={product} params={params} />
 				</div>
+
 				<aside>
 					<Suspense fallback={<div>Loading...</div>}>
 						<SugestedProducts />
@@ -98,3 +57,36 @@ const ProductPage = async ({ params }: Product) => {
 };
 
 export default ProductPage;
+
+//////////////////////////////////////////////
+
+// export const generateStaticParams = async () => {
+// 	const graphqlResponse = await executeGraphql(ProductsGetIdsListDocument, {});
+// 	return graphqlResponse.products.data.map((product) => {
+// 		return { productId: product.id };
+// 	});
+// };
+export const generateMetadata = async ({
+	params,
+}: {
+	params: { productId: string };
+}): Promise<Metadata> => {
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: { id: params.productId },
+	});
+	return {
+		title: graphqlResponse.product?.name,
+		description: graphqlResponse.product?.description,
+		openGraph: {
+			title: `${graphqlResponse.product?.name} - Dostępny na mojadomena.pl`,
+			description: graphqlResponse.product?.description,
+		},
+		twitter: {
+			site: "@MyTwitter",
+			title: `${graphqlResponse.product?.name} - Dostępny na mojadomena.pl`,
+			description: graphqlResponse.product?.description,
+		},
+		metadataBase: new URL("http://localhost:3000"),
+	};
+};

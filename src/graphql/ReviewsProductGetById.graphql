@@ -1,0 +1,11 @@
+query ReviewsProductGetById($id: ID) {
+	product(id: $id) {
+		name
+		reviews {
+			author
+			title
+			rating
+			description
+		}
+	}
+}

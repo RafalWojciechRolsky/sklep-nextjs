@@ -1,0 +1,5 @@
+query RatingProductGetById($id: ID) {
+	product(id: $id) {
+		rating
+	}
+}
