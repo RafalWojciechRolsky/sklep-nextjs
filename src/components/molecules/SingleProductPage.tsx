@@ -39,7 +39,7 @@ export const SingleProductPage = async ({
 				</div>
 				<SingleProductImage imageSrc={imageSrc} name={name} />
 			</article>
-			<ReviewForm productId={id} />
+			<ReviewForm _productId={id} />
 		</>
 	);
 };
