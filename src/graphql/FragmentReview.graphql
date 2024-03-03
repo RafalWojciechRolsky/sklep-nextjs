@@ -1,0 +1,8 @@
+fragment FragmentReview on ReviewList {
+	data {
+		author
+		title
+		rating
+		description
+	}
+}

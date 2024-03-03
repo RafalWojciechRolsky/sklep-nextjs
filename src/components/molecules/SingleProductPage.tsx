@@ -3,13 +3,21 @@ import { SingleProductDescription } from "@/components/atoms/SingleProductDescri
 import { SingleProductImage } from "@/components/atoms/SingleProductImage";
 import { AddToCartButton } from "@/components/atoms/AddToCartButton";
 import { addProductToCartAction } from "@/app/actions/addProductToCartAction";
-import { ReviewForm } from "@/components/molecules/reviewForm";
+import { ReviewForm } from "@/components/molecules/ReviewForm";
 
 export const SingleProductPage = async ({
 	product,
+	reviews,
 }: {
 	product: ProductOnPage;
 	params: { productId: string };
+	reviews: {
+		author: string;
+		title: string;
+		rating: number;
+		description: string;
+		email: string;
+	}[];
 }) => {
 	const { name, imageSrc, type, price, description = "", id } = product;
 
@@ -39,7 +47,7 @@ export const SingleProductPage = async ({
 				</div>
 				<SingleProductImage imageSrc={imageSrc} name={name} />
 			</article>
-			<ReviewForm _productId={id} />
+			<ReviewForm reviews={reviews} productId={id} />
 		</>
 	);
 };

@@ -179,7 +179,8 @@ export type ProductList = {
 export type ProductSortBy =
   | 'DEFAULT'
   | 'NAME'
-  | 'PRICE';
+  | 'PRICE'
+  | 'RATING';
 
 export type Query = {
   cart?: Maybe<Cart>;
@@ -338,6 +339,8 @@ export type FragmentProductFragment = { id: string, name: string, price: number,
 
 export type FragmentProductsInCartFragment = { items: Array<{ quantity: number, product: { id: string, name: string, price: number } }> };
 
+export type FragmentReviewFragment = { data: Array<{ author: string, title: string, rating: number, description: string }> };
+
 export type OrderGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -425,7 +428,7 @@ export type ReviewsProductGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type ReviewsProductGetByIdQuery = { product?: { name: string, reviews: Array<{ author: string, title: string, rating: number, description: string }> } | null };
+export type ReviewsProductGetByIdQuery = { product?: { reviews: Array<{ title: string, description: string, rating: number, author: string, email: string }> } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -466,6 +469,16 @@ export const FragmentProductsInCartFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"FragmentProductsInCart"}) as unknown as TypedDocumentString<FragmentProductsInCartFragment, unknown>;
+export const FragmentReviewFragmentDoc = new TypedDocumentString(`
+    fragment FragmentReview on ReviewList {
+  data {
+    author
+    title
+    rating
+    description
+  }
+}
+    `, {"fragmentName":"FragmentReview"}) as unknown as TypedDocumentString<FragmentReviewFragment, unknown>;
 export const ChangeItemQuantityDocument = new TypedDocumentString(`
     mutation ChangeItemQuantity($cartId: ID!, $productId: ID!, $quantity: Int!) {
   cartChangeItemQuantity(id: $cartId, productId: $productId, quantity: $quantity) {
@@ -718,12 +731,12 @@ export const ReviewsProductAddByIdDocument = new TypedDocumentString(`
 export const ReviewsProductGetByIdDocument = new TypedDocumentString(`
     query ReviewsProductGetById($id: ID) {
   product(id: $id) {
-    name
     reviews {
-      author
       title
-      rating
       description
+      rating
+      author
+      email
     }
   }
 }

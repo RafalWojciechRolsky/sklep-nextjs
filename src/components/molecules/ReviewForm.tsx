@@ -1,32 +1,48 @@
 "use client";
 
 import { useOptimistic, useState } from "react";
+import { addReviewAction } from "@/app/actions/addReviewAction";
+import { ReviewsList } from "@/components/molecules/ReviewsList";
 
 type ReviewFormType = {
-	headline: string;
-	content: string;
+	title: string;
+	description: string;
 	rating: number;
-	name: string;
+	author: string;
 	email: string;
 };
 
 const initState: ReviewFormType = {
-	headline: "",
-	content: "",
+	title: "",
+	description: "",
 	rating: 0,
-	name: "",
+	author: "",
 	email: "",
 };
 
-const reviews: ReviewFormType[] = [];
-
-export const ReviewForm = ({ _productId }: { _productId: string }) => {
-	const [review, _setReview] = useState<ReviewFormType>(initState);
-	const [optimisticReviews, _setOptimisticReviews] = useOptimistic(reviews);
+export const ReviewForm = ({
+	reviews,
+	productId,
+}: {
+	productId: string;
+	reviews: {
+		author: string;
+		title: string;
+		rating: number;
+		description: string;
+		email: string;
+	}[];
+}) => {
+	const [reviewState, setReview] = useState<ReviewFormType>(initState);
+	const [optimisticReviews, setOptimisticReviews] = useOptimistic(
+		reviews,
+		(prevState, reviewState: ReviewFormType) => [...prevState, reviewState],
+	);
 
 	return (
 		<>
-			<form data-testid="add-review-form" className="space-y-4" action="">
+			{optimisticReviews.length}
+			<form data-testid="add-review-form" className="space-y-4">
 				<div>
 					<label htmlFor="headline" className="block text-sm font-medium text-gray-700">
 						Headline
@@ -37,8 +53,11 @@ export const ReviewForm = ({ _productId }: { _productId: string }) => {
 						name="headline"
 						required
 						className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-						value={review.headline}
+						value={reviewState.title}
 						placeholder="Headline"
+						onChange={(e) =>
+							setReview((reviewState) => ({ ...reviewState, title: e.target.value }))
+						}
 					/>
 				</div>
 				<div>
@@ -51,8 +70,11 @@ export const ReviewForm = ({ _productId }: { _productId: string }) => {
 						rows={4}
 						required
 						className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-						value={review.content}
+						value={reviewState.description}
 						placeholder="Content"
+						onChange={(e) =>
+							setReview((reviewState) => ({ ...reviewState, description: e.target.value }))
+						}
 					></textarea>
 				</div>
 				<div>
@@ -67,8 +89,11 @@ export const ReviewForm = ({ _productId }: { _productId: string }) => {
 						max="5"
 						required
 						className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-						value={review.rating}
+						value={reviewState.rating}
 						placeholder="Rating"
+						onChange={(e) =>
+							setReview((reviewState) => ({ ...reviewState, rating: Number(e.target.value) }))
+						}
 					/>
 				</div>
 				<div>
@@ -81,8 +106,11 @@ export const ReviewForm = ({ _productId }: { _productId: string }) => {
 						name="name"
 						required
 						className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-						value={review.name}
+						value={reviewState.author}
 						placeholder="Name"
+						onChange={(e) =>
+							setReview((reviewState) => ({ ...reviewState, author: e.target.value }))
+						}
 					/>
 				</div>
 				<div>
@@ -95,54 +123,29 @@ export const ReviewForm = ({ _productId }: { _productId: string }) => {
 						name="email"
 						required
 						className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-						value={review.email}
+						value={reviewState.email}
 						placeholder="Email"
+						onChange={(e) =>
+							setReview((reviewState) => ({ ...reviewState, email: e.target.value }))
+						}
 					/>
 				</div>
 				<button
+					formAction={async () => {
+						const formData = new FormData();
+						Object.entries(reviewState).forEach(([key, value]) => {
+							formData.append(key, value.toString());
+						});
+						setOptimisticReviews(reviewState);
+						await addReviewAction(formData, productId);
+					}}
 					type="submit"
 					className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				>
 					Submit Review
 				</button>
 			</form>
-			{optimisticReviews.map((optimisticReview) => {
-				return (
-					<div
-						key={optimisticReview.headline}
-						className="mb-4 overflow-hidden bg-white shadow sm:rounded-lg"
-					>
-						<div className="px-4 py-5 sm:px-6">
-							<h3 className="text-lg font-medium leading-6 text-gray-900">
-								{optimisticReview.headline}
-							</h3>
-							<p className="mt-1 max-w-2xl text-sm text-gray-500">{optimisticReview.content}</p>
-						</div>
-						<div className="border-t border-gray-200">
-							<dl>
-								<div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-									<dt className="text-sm font-medium text-gray-500">Rating</dt>
-									<dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-										{optimisticReview.rating}
-									</dd>
-								</div>
-								<div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-									<dt className="text-sm font-medium text-gray-500">Name</dt>
-									<dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-										{optimisticReview.name}
-									</dd>
-								</div>
-								<div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-									<dt className="text-sm font-medium text-gray-500">Email</dt>
-									<dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-										{optimisticReview.email}
-									</dd>
-								</div>
-							</dl>
-						</div>
-					</div>
-				);
-			})}
+			<ReviewsList optimisticReviews={optimisticReviews} />
 		</>
 	);
 };

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { type ProductOnPage } from "@/types/types";
 import { SugestedProducts } from "@/components/organisms/SugestedProducts";
 // import { ProductGetByIdDocument, ProductsGetIdsListDocument } from "@/gql/graphql";
-import { ProductGetByIdDocument } from "@/gql/graphql";
+import { ProductGetByIdDocument, ReviewsProductGetByIdDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { SingleProductPage } from "@/components/molecules/SingleProductPage";
 
@@ -20,6 +20,17 @@ const ProductPage = async ({ params }: Product) => {
 				id: params.productId,
 			},
 		});
+		const graphqlResponseReviews = await executeGraphql({
+			query: ReviewsProductGetByIdDocument,
+			variables: {
+				id: params.productId,
+			},
+			next: {
+				tags: ["reviews"],
+			},
+		});
+
+		const reviews = graphqlResponseReviews.product?.reviews || [];
 
 		const product: ProductOnPage = {
 			id: graphqlResponse.product?.id || "",
@@ -33,7 +44,7 @@ const ProductPage = async ({ params }: Product) => {
 		return (
 			<>
 				<div className="text-gray-900">
-					<SingleProductPage product={product} params={params} />
+					<SingleProductPage product={product} params={params} reviews={reviews} />
 				</div>
 
 				<aside>
