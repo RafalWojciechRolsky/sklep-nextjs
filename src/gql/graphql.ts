@@ -289,6 +289,13 @@ export type CartIdFindOrCreateMutationVariables = Exact<{
 
 export type CartIdFindOrCreateMutation = { cartFindOrCreate: { id: string } };
 
+export type CartProducts2GetByCartIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type CartProducts2GetByCartIdQuery = { cart?: { items: Array<{ quantity: number, product: { id: string } }> } | null };
+
 export type CartProductsGetByCartIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -495,6 +502,18 @@ export const CartIdFindOrCreateDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CartIdFindOrCreateMutation, CartIdFindOrCreateMutationVariables>;
+export const CartProducts2GetByCartIdDocument = new TypedDocumentString(`
+    query CartProducts2GetByCartId($id: ID!) {
+  cart(id: $id) {
+    items {
+      product {
+        id
+      }
+      quantity
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CartProducts2GetByCartIdQuery, CartProducts2GetByCartIdQueryVariables>;
 export const CartProductsGetByCartIdDocument = new TypedDocumentString(`
     query CartProductsGetByCartId($id: ID!) {
   cart(id: $id) {

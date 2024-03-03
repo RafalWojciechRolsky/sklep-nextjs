@@ -41,6 +41,7 @@ export const ReviewForm = ({
 
 	return (
 		<>
+			<ReviewsList optimisticReviews={optimisticReviews} />
 			{optimisticReviews.length}
 			<form data-testid="add-review-form" className="space-y-4">
 				<div>
@@ -145,7 +146,6 @@ export const ReviewForm = ({
 					Submit Review
 				</button>
 			</form>
-			<ReviewsList optimisticReviews={optimisticReviews} />
 		</>
 	);
 };

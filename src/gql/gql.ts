@@ -16,6 +16,7 @@ import * as types from './graphql';
 const documents = {
     "mutation ChangeItemQuantity($cartId: ID!, $productId: ID!, $quantity: Int!) {\n  cartChangeItemQuantity(id: $cartId, productId: $productId, quantity: $quantity) {\n    items {\n      quantity\n    }\n  }\n}": types.ChangeItemQuantityDocument,
     "mutation CartIdFindOrCreate($id: ID) {\n  cartFindOrCreate(id: $id, input: {}) {\n    id\n  }\n}": types.CartIdFindOrCreateDocument,
+    "query CartProducts2GetByCartId($id: ID!) {\n  cart(id: $id) {\n    items {\n      product {\n        id\n      }\n      quantity\n    }\n  }\n}": types.CartProducts2GetByCartIdDocument,
     "query CartProductsGetByCartId($id: ID!) {\n  cart(id: $id) {\n    id\n    items {\n      product {\n        id\n        name\n        price\n      }\n      quantity\n    }\n  }\n}": types.CartProductsGetByCartIdDocument,
     "mutation CartRemoveItem($cartId: ID!, $productId: ID!) {\n  cartRemoveItem(id: $cartId, productId: $productId) {\n    items {\n      product {\n        id\n        name\n      }\n    }\n  }\n}": types.CartRemoveItemDocument,
     "query Categories {\n  categories {\n    data {\n      id\n      slug\n      name\n    }\n  }\n}": types.CategoriesDocument,
@@ -48,6 +49,10 @@ export function graphql(source: "mutation ChangeItemQuantity($cartId: ID!, $prod
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation CartIdFindOrCreate($id: ID) {\n  cartFindOrCreate(id: $id, input: {}) {\n    id\n  }\n}"): typeof import('./graphql').CartIdFindOrCreateDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query CartProducts2GetByCartId($id: ID!) {\n  cart(id: $id) {\n    items {\n      product {\n        id\n      }\n      quantity\n    }\n  }\n}"): typeof import('./graphql').CartProducts2GetByCartIdDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
