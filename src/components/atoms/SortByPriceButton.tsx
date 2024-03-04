@@ -13,7 +13,6 @@ export const SortByPriceButton = () => {
 				className="mr-20 bg-blue-500 px-5 py-2 text-white transition-colors duration-300 ease-out hover:bg-blue-700"
 				onClick={(e) => {
 					e.preventDefault();
-
 					router.replace("/products/1?orderBy=PRICE");
 				}}
 			>

@@ -9,10 +9,11 @@ import { ProductList } from "@/components/organisms/ProductList";
 import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { Pagination } from "@/components/molecules/Pagination";
-import { SortByPriceButton } from "@/components/atoms/SortByPriceButton";
+// import { SortByPriceButton } from "@/components/atoms/SortByPriceButton";
+// import { SortByRatingButton } from "@/components/atoms/SortByRatingButton";
 import { getOrder } from "@/utils/getOrder";
 import { getSortByValue } from "@/utils/getSortByValue";
-import { SortByRatingButton } from "@/components/atoms/SortByRatingButton";
+import { SortProductsBy } from "@/components/atoms/SortProductsBy";
 
 const ProductsPage = async ({
 	params,
@@ -68,15 +69,14 @@ const ProductsPage = async ({
 		};
 	});
 
-	console.log({ products });
-
 	return (
 		<>
 			<h1 className="mb-10 text-center text-3xl font-semibold text-slate-900">All Products</h1>
-			<div className="flex justify-end">
-				<SortByRatingButton />
+			<SortProductsBy />
+			{/* <div className="flex justify-end">
 				<SortByPriceButton />
-			</div>
+				<SortByRatingButton />
+			</div> */}
 			<ProductList products={products} />
 			<Pagination
 				take={take}

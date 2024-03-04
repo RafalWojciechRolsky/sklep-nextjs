@@ -20,7 +20,11 @@ export const ProductDescription: FC<IPropsTypes> = ({ name, type, price, rating 
 					<p data-testid="product-price" className="pb-4 font-mono font-bold">
 						{priceFormat(price, "pl-PL", "PLN")}
 					</p>
-					{rating && <p className="text-xs text-gray-500">{rating}</p>}
+					{rating && (
+						<p className="text-xs text-gray-500" data-testid="product-rating">
+							{rating}
+						</p>
+					)}
 				</div>
 			</div>
 		</section>
