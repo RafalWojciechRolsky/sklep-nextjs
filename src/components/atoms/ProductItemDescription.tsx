@@ -9,8 +9,6 @@ interface IPropsTypes {
 }
 
 export const ProductDescription: FC<IPropsTypes> = ({ name, type, price, rating }) => {
-	console.log({ rating });
-
 	return (
 		<section className="mt-8 flex flex-1 flex-col justify-between gap-2 pt-1 text-gray-900">
 			<h2 className="text-xl font-bold">{name}</h2>
