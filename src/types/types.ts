@@ -5,6 +5,7 @@ export interface ProductOnPage {
 	price: number;
 	imageSrc: string;
 	description?: string;
+	rating?: number | undefined;
 }
 
 export interface ProductResponseItem {

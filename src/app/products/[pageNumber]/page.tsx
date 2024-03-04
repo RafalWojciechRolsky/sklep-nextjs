@@ -10,6 +10,9 @@ import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { Pagination } from "@/components/molecules/Pagination";
 import { SortByPriceButton } from "@/components/atoms/SortByPriceButton";
+import { getOrder } from "@/utils/getOrder";
+import { getSortByValue } from "@/utils/getSortByValue";
+import { SortByRatingButton } from "@/components/atoms/SortByRatingButton";
 
 const ProductsPage = async ({
 	params,
@@ -39,8 +42,8 @@ const ProductsPage = async ({
 	const graphqlResponse = await executeGraphql({
 		query: ProductsSortedByInDirectionDocument,
 		variables: {
-			order: searchParams.order,
-			orderBy: searchParams.orderBy,
+			order: getOrder(searchParams.order),
+			orderBy: getSortByValue(searchParams.orderBy),
 			take: +searchParams.take || defaultTake,
 			skip: skip,
 		},
@@ -48,26 +51,6 @@ const ProductsPage = async ({
 			tags: ["ProductsPage"],
 		},
 	});
-
-	const getSortByValue = (value: ProductSortBy | undefined): ProductSortBy => {
-		if (!value) {
-			return "DEFAULT";
-		}
-		if (["DEFAULT", "NAME", "PRICE", "RATING"].includes(value)) {
-			return value;
-		}
-		return "DEFAULT";
-	};
-
-	const getOrder = (value: SortDirection | undefined): SortDirection => {
-		if (!value) {
-			return "ASC";
-		}
-		if (["ASC", "DESC"].includes(value)) {
-			return value;
-		}
-		return "ASC";
-	};
 
 	const order = getOrder(searchParams.order);
 	const orderBy = getSortByValue(searchParams.orderBy);
@@ -81,13 +64,19 @@ const ProductsPage = async ({
 			name: product.name,
 			price: product.price || 0,
 			type: product.categories[0]?.name || "",
+			rating: product.rating || undefined,
 		};
 	});
+
+	console.log({ products });
 
 	return (
 		<>
 			<h1 className="mb-10 text-center text-3xl font-semibold text-slate-900">All Products</h1>
-			<SortByPriceButton />
+			<div className="flex justify-end">
+				<SortByRatingButton />
+				<SortByPriceButton />
+			</div>
 			<ProductList products={products} />
 			<Pagination
 				take={take}

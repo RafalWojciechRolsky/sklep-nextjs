@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-export const SortByPriceButton = () => {
+export const SortByRatingButton = () => {
 	const router = useRouter();
 
 	return (
@@ -10,14 +10,13 @@ export const SortByPriceButton = () => {
 			<button
 				data-testid="sort-by-price"
 				type="submit"
-				className="mr-20 bg-blue-500 px-5 py-2 text-white transition-colors duration-300 ease-out hover:bg-blue-700"
+				className="mr-20 bg-yellow-200 px-5 py-2 text-slate-700 transition-colors duration-300 ease-out hover:bg-yellow-400"
 				onClick={(e) => {
 					e.preventDefault();
-
-					router.replace("/products/1?orderBy=PRICE");
+					router.replace("/products/1?orderBy=RATING");
 				}}
 			>
-				SORT BY PRICE
+				SORT BY RATING
 			</button>
 		</form>
 	);

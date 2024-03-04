@@ -419,7 +419,7 @@ export type ProductsSortedByInDirectionQueryVariables = Exact<{
 }>;
 
 
-export type ProductsSortedByInDirectionQuery = { products: { data: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } };
+export type ProductsSortedByInDirectionQuery = { products: { data: Array<{ rating?: number | null, id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } };
 
 export type RatingProductGetByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -741,6 +741,7 @@ export const ProductsSortedByInDirectionDocument = new TypedDocumentString(`
   products(take: $take, skip: $skip, orderBy: $orderBy, order: $order) {
     data {
       ...FragmentProduct
+      rating
     }
   }
 }
