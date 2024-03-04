@@ -1,16 +1,26 @@
 import { type Metadata } from "next";
-import { ProductsGetListDocument, ProductsListAllDocument } from "@/gql/graphql";
+import {
+	type ProductSortBy,
+	ProductsListAllDocument,
+	ProductsSortedByInDirectionDocument,
+	type SortDirection,
+} from "@/gql/graphql";
 import { ProductList } from "@/components/organisms/ProductList";
 import { type ProductOnPage } from "@/types/types";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { Pagination } from "@/components/molecules/Pagination";
+import { SortByPriceButton } from "@/components/atoms/SortByPriceButton";
 
 const ProductsPage = async ({
 	params,
 	searchParams,
 }: {
 	params: { [key: string]: string };
-	searchParams: { take: string };
+	searchParams: {
+		take: string;
+		order: SortDirection | undefined;
+		orderBy: ProductSortBy | undefined;
+	};
 }) => {
 	const defaultTake = 8;
 	let pageNumber = 1;
@@ -27,13 +37,40 @@ const ProductsPage = async ({
 		},
 	});
 	const graphqlResponse = await executeGraphql({
-		query: ProductsGetListDocument,
+		query: ProductsSortedByInDirectionDocument,
 		variables: {
+			order: searchParams.order,
+			orderBy: searchParams.orderBy,
 			take: +searchParams.take || defaultTake,
 			skip: skip,
 		},
+		next: {
+			tags: ["ProductsPage"],
+		},
 	});
 
+	const getSortByValue = (value: ProductSortBy | undefined): ProductSortBy => {
+		if (!value) {
+			return "DEFAULT";
+		}
+		if (["DEFAULT", "NAME", "PRICE", "RATING"].includes(value)) {
+			return value;
+		}
+		return "DEFAULT";
+	};
+
+	const getOrder = (value: SortDirection | undefined): SortDirection => {
+		if (!value) {
+			return "ASC";
+		}
+		if (["ASC", "DESC"].includes(value)) {
+			return value;
+		}
+		return "ASC";
+	};
+
+	const order = getOrder(searchParams.order);
+	const orderBy = getSortByValue(searchParams.orderBy);
 	const take = +searchParams.take || defaultTake;
 	const totalProducts = numberOfproducts.products?.meta.total;
 
@@ -50,12 +87,15 @@ const ProductsPage = async ({
 	return (
 		<>
 			<h1 className="mb-10 text-center text-3xl font-semibold text-slate-900">All Products</h1>
+			<SortByPriceButton />
 			<ProductList products={products} />
 			<Pagination
 				take={take}
 				totalProducts={totalProducts}
 				path="products"
 				currentPage={pageNumber}
+				order={order}
+				orderBy={orderBy}
 			/>
 		</>
 	);

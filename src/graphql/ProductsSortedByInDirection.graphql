@@ -1,0 +1,12 @@
+query ProductsSortedByInDirection(
+	$orderBy: ProductSortBy
+	$order: SortDirection
+	$take: Int
+	$skip: Int
+) {
+	products(take: $take, skip: $skip, orderBy: $orderBy, order: $order) {
+		data {
+			...FragmentProduct
+		}
+	}
+}

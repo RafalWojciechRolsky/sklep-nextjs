@@ -411,6 +411,16 @@ export type ProductsSearchListQueryVariables = Exact<{
 
 export type ProductsSearchListQuery = { products: { data: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } };
 
+export type ProductsSortedByInDirectionQueryVariables = Exact<{
+  orderBy?: InputMaybe<ProductSortBy>;
+  order?: InputMaybe<SortDirection>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type ProductsSortedByInDirectionQuery = { products: { data: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> } };
+
 export type RatingProductGetByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
 }>;
@@ -726,6 +736,25 @@ export const ProductsSearchListDocument = new TypedDocumentString(`
     url
   }
 }`) as unknown as TypedDocumentString<ProductsSearchListQuery, ProductsSearchListQueryVariables>;
+export const ProductsSortedByInDirectionDocument = new TypedDocumentString(`
+    query ProductsSortedByInDirection($orderBy: ProductSortBy, $order: SortDirection, $take: Int, $skip: Int) {
+  products(take: $take, skip: $skip, orderBy: $orderBy, order: $order) {
+    data {
+      ...FragmentProduct
+    }
+  }
+}
+    fragment FragmentProduct on Product {
+  id
+  name
+  price
+  categories {
+    name
+  }
+  images {
+    url
+  }
+}`) as unknown as TypedDocumentString<ProductsSortedByInDirectionQuery, ProductsSortedByInDirectionQueryVariables>;
 export const RatingProductGetByIdDocument = new TypedDocumentString(`
     query RatingProductGetById($id: ID) {
   product(id: $id) {

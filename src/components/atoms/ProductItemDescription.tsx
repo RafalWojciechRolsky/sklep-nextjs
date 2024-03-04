@@ -13,7 +13,9 @@ export const ProductDescription: FC<IPropsTypes> = ({ name, type, price }) => {
 			<h2 className="text-xl font-bold">{name}</h2>
 			<div className="flex flex-col">
 				<p className="text-xs text-gray-500">{type}</p>
-				<p className="pb-4 font-mono font-bold">{priceFormat(price, "pl-PL", "PLN")}</p>
+				<p data-testid="product-price" className="pb-4 font-mono font-bold">
+					{priceFormat(price, "pl-PL", "PLN")}
+				</p>
 			</div>
 		</section>
 	);

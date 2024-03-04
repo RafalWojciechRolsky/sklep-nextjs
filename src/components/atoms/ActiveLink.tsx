@@ -3,10 +3,11 @@
 import { useParams, usePathname } from "next/navigation";
 import { type ReactNode } from "react";
 import Link from "next/link";
+import { type ProductSortBy, type SortDirection } from "@/gql/graphql";
 
 type HrefObject = {
 	pathname: string;
-	query?: { [key: string]: number };
+	query?: { take: number; order: SortDirection; orderBy: ProductSortBy };
 };
 
 export const ActiveLink = ({
@@ -46,7 +47,10 @@ export const ActiveLink = ({
 	if (href.query?.take) {
 		return (
 			<Link
-				href={{ pathname: href.pathname, query: { take: href.query?.take } }}
+				href={{
+					pathname: href.pathname,
+					query: { take: href.query?.take, order: href.query?.order, orderBy: href.query?.orderBy },
+				}}
 				className={combinedClassName}
 				aria-current={isActive ? "page" : undefined}
 				shallow={shallow}
@@ -57,7 +61,10 @@ export const ActiveLink = ({
 	} else {
 		return (
 			<Link
-				href={{ pathname: href.pathname }}
+				href={{
+					pathname: href.pathname,
+					query: { order: href.query?.order, orderBy: href.query?.orderBy },
+				}}
 				className={combinedClassName}
 				aria-current={isActive ? "page" : undefined}
 				shallow={shallow}

@@ -36,6 +36,7 @@ const documents = {
     "query ProductsListAll {\n  products {\n    meta {\n      total\n    }\n  }\n}": types.ProductsListAllDocument,
     "query ProductsNameGetByCategory($slug: String!) {\n  category(slug: $slug) {\n    products {\n      name\n    }\n  }\n}": types.ProductsNameGetByCategoryDocument,
     "query ProductsSearchList($search: String, $take: Int) {\n  products(search: $search, take: $take) {\n    data {\n      ...FragmentProduct\n    }\n  }\n}": types.ProductsSearchListDocument,
+    "query ProductsSortedByInDirection($orderBy: ProductSortBy, $order: SortDirection, $take: Int, $skip: Int) {\n  products(take: $take, skip: $skip, orderBy: $orderBy, order: $order) {\n    data {\n      ...FragmentProduct\n    }\n  }\n}": types.ProductsSortedByInDirectionDocument,
     "query RatingProductGetById($id: ID) {\n  product(id: $id) {\n    rating\n  }\n}": types.RatingProductGetByIdDocument,
     "mutation ReviewsProductAddById($productId: ID!, $author: String!, $email: String!, $description: String!, $title: String!, $rating: Int!) {\n  reviewCreate(\n    productId: $productId\n    author: $author\n    email: $email\n    description: $description\n    title: $title\n    rating: $rating\n  ) {\n    id\n  }\n}": types.ReviewsProductAddByIdDocument,
     "query ReviewsProductGetById($id: ID) {\n  product(id: $id) {\n    reviews {\n      title\n      description\n      rating\n      author\n      email\n    }\n  }\n}": types.ReviewsProductGetByIdDocument,
@@ -129,6 +130,10 @@ export function graphql(source: "query ProductsNameGetByCategory($slug: String!)
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query ProductsSearchList($search: String, $take: Int) {\n  products(search: $search, take: $take) {\n    data {\n      ...FragmentProduct\n    }\n  }\n}"): typeof import('./graphql').ProductsSearchListDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductsSortedByInDirection($orderBy: ProductSortBy, $order: SortDirection, $take: Int, $skip: Int) {\n  products(take: $take, skip: $skip, orderBy: $orderBy, order: $order) {\n    data {\n      ...FragmentProduct\n    }\n  }\n}"): typeof import('./graphql').ProductsSortedByInDirectionDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

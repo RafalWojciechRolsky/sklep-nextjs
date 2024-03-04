@@ -52,7 +52,10 @@ export const Header = async () => {
 						return (
 							<li key={navLink.href}>
 								<ActiveLink
-									href={{ pathname: `${navLink.href}` }}
+									href={{
+										pathname: `${navLink.href}`,
+										query: { order: "ASC", orderBy: "DEFAULT", take: 8 },
+									}}
 									activeClassName="border-b-4 border-b-slate-600 pb-6 pt-7 bg-slate-300"
 									className="px-2 font-bold transition-all duration-300 ease-out hover:text-slate-900 "
 									exact
