@@ -11,14 +11,7 @@ interface IPropsTypes {
 	currentPage: number;
 }
 
-export const Pagination = ({
-	totalProducts,
-	take,
-	path,
-	currentPage,
-	order,
-	orderBy,
-}: IPropsTypes) => {
+export const Pagination = ({ totalProducts, take, path, currentPage }: IPropsTypes) => {
 	const totalPages = Math.ceil(totalProducts / take);
 
 	if (totalPages > 1) {
@@ -28,7 +21,6 @@ export const Pagination = ({
 					<ActiveLink
 						href={{
 							pathname: `/${path}/${currentPage - 1}`,
-							query: { take, order, orderBy },
 						}}
 						shallow={true}
 						className="rounded-sm bg-slate-300 px-4 py-2"
@@ -40,7 +32,6 @@ export const Pagination = ({
 					<ActiveLink
 						href={{
 							pathname: `/${path}/${page}`,
-							query: { take, order, orderBy },
 						}}
 						shallow={true}
 						key={page}
@@ -53,7 +44,6 @@ export const Pagination = ({
 					<ActiveLink
 						href={{
 							pathname: `/${path}/${currentPage + 1}`,
-							query: { take, order, orderBy },
 						}}
 						shallow={true}
 						className="rounded-sm bg-slate-300 px-4 py-2"
