@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { executeGraphql } from "@/utils/executeGraphql";
 import { CategoriesDocument, CollectionsGetAllDocument } from "@/gql/graphql";
@@ -67,6 +68,13 @@ export const Header = async () => {
 				</ul>
 			</nav>
 			<SearchInput />
+			<SignedIn>
+				{/* <UserButton userProfileMode="navigation" appearance={clerkAppearance} /> */}
+				<UserButton userProfileMode="navigation" />
+			</SignedIn>
+			<SignedOut>
+				<SignInButton />
+			</SignedOut>
 			<Link href={"/cart"}>
 				<CartInHeader quantity={quantity} />
 			</Link>
