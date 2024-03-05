@@ -18,5 +18,4 @@ export default authMiddleware({
 		"/categories",
 		"/random",
 	],
-	debug: true,
 });

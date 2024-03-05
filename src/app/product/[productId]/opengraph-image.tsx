@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { ProductGetByIdDocument } from "@/gql/graphql";
 import { executeGraphql } from "@/utils/executeGraphql";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export const size = {
 	width: 500,
