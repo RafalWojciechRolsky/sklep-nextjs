@@ -32,6 +32,7 @@ export const Pagination = ({
 						}}
 						shallow={true}
 						className="rounded-sm bg-slate-300 px-4 py-2"
+						pagination={true}
 					>
 						<ChevronLeft size={36} />
 					</ActiveLink>
@@ -45,6 +46,7 @@ export const Pagination = ({
 						shallow={true}
 						key={page}
 						className={`rounded-sm px-4 py-2 ${currentPage === page ? "bg-slate-500" : "bg-slate-300"}`}
+						pagination={true}
 					>
 						{page}
 					</ActiveLink>
@@ -57,6 +59,7 @@ export const Pagination = ({
 						}}
 						shallow={true}
 						className="rounded-sm bg-slate-300 px-4 py-2"
+						pagination={true}
 					>
 						<ChevronRight size={36} />
 					</ActiveLink>

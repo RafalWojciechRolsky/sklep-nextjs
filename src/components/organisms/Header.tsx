@@ -45,7 +45,7 @@ export const Header = async () => {
 	];
 
 	return (
-		<header className="mx-auto max-w-2xl  bg-gray-100 px-4 py-6 text-slate-600  sm:px-6 lg:max-w-7xl lg:px-8">
+		<header className="mx-auto flex  max-w-2xl flex-row items-center justify-between  bg-gray-100 px-4 py-6 text-slate-600 sm:px-6 lg:max-w-7xl lg:px-8">
 			<nav className="flex flex-row items-center justify-between">
 				<ul className="flex justify-center" aria-label="pagination">
 					{navLinks.map((navLink) => {
@@ -65,11 +65,11 @@ export const Header = async () => {
 						);
 					})}
 				</ul>
-				<SearchInput />
-				<Link href={"/cart"}>
-					<CartInHeader quantity={quantity} />
-				</Link>
 			</nav>
+			<SearchInput />
+			<Link href={"/cart"}>
+				<CartInHeader quantity={quantity} />
+			</Link>
 		</header>
 	);
 };

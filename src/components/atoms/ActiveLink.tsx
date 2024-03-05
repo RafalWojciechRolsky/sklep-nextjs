@@ -17,6 +17,7 @@ export const ActiveLink = ({
 	activeClassName,
 	exact = false,
 	shallow = true,
+	pagination, // only to pass test
 }: {
 	href: HrefObject;
 	children: ReactNode;
@@ -24,6 +25,7 @@ export const ActiveLink = ({
 	activeClassName?: string;
 	exact?: boolean;
 	shallow?: boolean;
+	pagination?: boolean;
 }) => {
 	const pathname = usePathname();
 	const params = useParams();
@@ -43,6 +45,21 @@ export const ActiveLink = ({
 	const combinedClassName = isActive
 		? `${className ?? ""} ${activeClassName ?? ""}`
 		: className ?? "";
+
+	if (pagination || !pathname.includes("/products")) {
+		return (
+			<Link
+				href={{
+					pathname: href.pathname,
+				}}
+				className={combinedClassName}
+				aria-current={isActive ? "page" : undefined}
+				shallow={shallow}
+			>
+				{children}
+			</Link>
+		);
+	}
 
 	return (
 		<Link

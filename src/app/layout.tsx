@@ -3,6 +3,7 @@
 import { Fira_Code, Fira_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
 import { type Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
 
@@ -80,12 +81,14 @@ export default function RootLayout({
 	return (
 		<html lang="pl" className={`${firaCode.variable} ${firaSans.variable} ${montserrat.variable}`}>
 			<body>
-				<Header />
-				<section className="mx-auto min-h-screen max-w-2xl bg-white px-4 py-16 text-slate-700 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-					{children}
-				</section>
-				<Footer />
-				{modal}
+				<ClerkProvider>
+					<Header />
+					<section className="mx-auto min-h-screen max-w-2xl bg-white px-4 py-16 text-slate-700 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+						{children}
+					</section>
+					<Footer />
+					{modal}
+				</ClerkProvider>
 			</body>
 		</html>
 	);
